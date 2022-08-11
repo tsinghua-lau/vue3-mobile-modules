@@ -1,17 +1,19 @@
 # vue3.2移动端
 
-# 客服项目
-### svg
-### less
-### vant
-### postcss-pxtorem
-### 高德地图
+### 项目集成
+##### svg
+##### less
+##### vant
+##### axios
+##### vuex
+##### postcss-pxtorem
+##### 高德地图
 
 
 
-# 目录结构
+### 目录结构
 
-
+```
 ├─ config                  # 模块化配置
 ├─ public
 │  ├─ favicon.ico
@@ -34,6 +36,7 @@
 │  ├─ App.vue              # 入口页面
 │  └─ main.js              # 入口文件
 └─ vue.config.js           # vue-cli 配置
+```
 
 ## Project setup
 ```
