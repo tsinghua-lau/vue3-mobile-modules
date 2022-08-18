@@ -22,7 +22,7 @@
 ├─ src
 │  ├─ assets               # 静态资源
 │  ├─ components           # 全局组件
-│  ├─ applications         # 茉莉管家融合
+│  ├─ applications         # 模块融合
 │  ├─ projects             # 子模块项目
 │     ├─ bill_management   #开票管理
 │     ├─ base_management   #基础管理
