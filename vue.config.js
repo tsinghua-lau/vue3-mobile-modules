@@ -22,6 +22,8 @@ module.exports = {
         // 配置alias简称
         alias: {
           '@': resolve('src'),
+          '@mlgj': resolve('src/applications/app_mlgj'),
+          '@user': resolve('src/projects/user_management'),
           '*': resolve('')
         }
       },

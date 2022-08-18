@@ -1,22 +1,29 @@
 {
-  "name": "vue4",
+  "name": "vue3",
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "dev:mlgj": "cross-env PROJECT_NAME=app_mlgj vue-cli-service serve",
+
     "dev:user": "cross-env PROJECT_NAME=user_management vue-cli-service serve",
-    "dev:notace": "cross-env PROJECT_NAME=notace_management vue-cli-service serve",
-    "dev:ball": "cross-env PROJECT_NAME=ball_magement vue-cli-service serve",
+    "dev:notice": "cross-env PROJECT_NAME=notice_management vue-cli-service serve",
+    "dev:bill": "cross-env PROJECT_NAME=bill_magement vue-cli-service serve",
     "dev:rescue": "cross-env PROJECT_NAME=rescue_management vue-cli-service serve",
-    "dev:service": "cross-env PROJECT_NAME=service_management vue-cli-service serve",
+    "dev:base": "cross-env PROJECT_NAME=base_management vue-cli-service serve",
     "build:user": "cross-env PROJECT_NAME=user_management vue-cli-service build",
-    "build:notace": "cross-env PROJECT_NAME=notace_management vue-cli-service build",
-    "build:ball": "cross-env PROJECT_NAME=ball_magement vue-cli-service build",
+    "build:notice": "cross-env PROJECT_NAME=notice_management vue-cli-service build",
+    "build:bill": "cross-env PROJECT_NAME=bill_magement vue-cli-service build",
     "build:rescue": "cross-env PROJECT_NAME=rescue_management vue-cli-service build",
-    "build:service": "cross-env PROJECT_NAME=service_management vue-cli-service build",
+    "build:base": "cross-env PROJECT_NAME=base_management vue-cli-service build",
+
+    "build:mlgj": "cross-env PROJECT_NAME=app_mlgj vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
     "axios": "^0.27.2",
+    "echarts": "^5.3.3",
+    "mitt": "^3.0.0",
     "vant": "^3.5.4",
     "vue": "^3.2.37",
     "vue-router": "^4.0.0-0",

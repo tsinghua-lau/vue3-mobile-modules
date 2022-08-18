@@ -8,6 +8,7 @@
 ##### vuex
 ##### postcss-pxtorem
 ##### 高德地图
+##### prettier
 
 
 
@@ -21,10 +22,11 @@
 ├─ src
 │  ├─ assets               # 静态资源
 │  ├─ components           # 全局组件
+│  ├─ applications         # 茉莉管家融合
 │  ├─ projects             # 子模块项目
-│     ├─ ball_management   #开票管理
+│     ├─ bill_management   #开票管理
 │     ├─ base_management   #基础管理
-│     ├─ notace_management #通知管理
+│     ├─ notice_management #通知管理
 │     ├─ rescue_management #救援管理
 │     └─ user_management   #用户管理
 │  ├─ router               # 路由
@@ -36,6 +38,7 @@
 │  ├─ App.vue              # 入口页面
 │  └─ main.js              # 入口文件
 └─ vue.config.js           # vue-cli 配置
+
 ```
 
 ## Project setup
