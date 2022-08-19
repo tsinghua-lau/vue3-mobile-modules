@@ -1,12 +1,12 @@
 .<template>
-  <div style="height: 100%">
-    <div class="title_top">
+  <div>
+    <div class="title_top_t">
       <img class="tollimg" src="./../../icon/toll.png" />
       <span class="toll_gate_txt">收费站</span>
       <img src="./../../icon/close.png" @click="closePubop" class="closeButton" />
     </div>
     <div class="toll_centen">
-      <highwaySign msg="苏高速"/>
+      <highwaySign msg="苏高速" />
       <span class="toll_centen_right">
         <div>平潮北收费站</div>
         <div class="toll_centen_right_bottom">
@@ -47,200 +47,203 @@ const emit = defineEmits(['closeAdd']);
 onMounted(() => {});
 const status = ref('1');
 const cl9 = ref('1');
-const closePubop = ()=>{
-   emit('closePubop', false);
-}
+const closePubop = () => {
+  emit('closePubop', false);
+};
 </script>
 <style lang="less" scoped>
-.title_top {
+.title_top_t {
   box-sizing: border-box;
   position: relative;
-  padding: 20px;
-  height: 158px;
+  padding: 10px;
+  height: 60px;
   background: linear-gradient(to bottom, #eaf0fa 0%, #fff 100%);
-  padding-left: 51px;
-  padding-top: 38px;
+  padding-left: 20px;
+  padding-top: 20px;
   .tollimg {
     float: left;
-    width: 52px;
-    height: 52px;
+    width: 24px;
+    height: 24px;
   }
   .toll_gate_txt {
     float: left;
     margin-left: 10px;
-    vertical-align: super;
+    vertical-align: middle;
+    font-size: 18px;
     font-family: Source Han Sans CN, Source Han Sans CN-Regular;
   }
   .closeButton {
     float: right;
-    width: 31.88px;
-    height: 31.88px;
-    margin-right: 50.56px;
+    width: 11px;
+    height: 11px;
+    margin-right: 20px;
+    margin-top: 5px;
   }
 }
 .toll_centen {
-  height: calc(100% - 158px);
+  height: calc(100% - 64px);
   background-color: #fff;
   .toll_centen_right {
     display: inline-block;
-    width: calc(100% - 200px);
-    vertical-align: text-top;
+    width: calc(100% - 80px);
+    vertical-align: bottom;
     div {
-      margin-left: 43px;
-      font-size: 60px;
+      margin-left: 18px;
+      font-size: 24px;
       font-family: Source Han Sans CN, Source Han Sans CN-Regular;
       font-weight: 400;
       text-align: left;
       color: #333333;
-      line-height: 56px;
+      line-height: 22px;
     }
     .toll_centen_right_bottom {
-      margin-top: 22px;
+      margin-top: 9px;
       .toll_centen_right_icon1 {
         display: inline-block;
-        width: 50px;
-        height: 50px;
+        width: 20px;
+        height: 20px;
         background: #2d7ce7;
-        border-radius: 6px;
+        border-radius: 3px;
         color: #fff;
-        font-size: 30px;
+        font-size: 12px;
         font-family: Source Han Sans CN, Source Han Sans CN-Regular;
         font-weight: 400;
         text-align: left;
         color: #ffffff;
-        line-height: 56px;
+        line-height: 22px;
         text-align: center;
-        border-radius: 6px;
+        border-radius: 2px;
       }
       .toll_centen_right_icon2 {
         display: inline-block;
-        width: 50px;
-        height: 50px;
+        width: 20px;
+        height: 20px;
         background: #6eacff;
-        border-radius: 6px;
+        border-radius: 3px;
         color: #fff;
-        font-size: 30px;
+        font-size: 12px;
         font-family: Source Han Sans CN, Source Han Sans CN-Regular;
         font-weight: 400;
         text-align: left;
         color: #ffffff;
-        line-height: 56px;
+        line-height: 22px;
         text-align: center;
-        border-radius: 6px;
+        border-radius: 3px;
       }
       .toll_centen_right_icon3 {
         display: inline-block;
-        width: 50px;
-        height: 50px;
+        width: 20px;
+        height: 20px;
         background: #ffffff;
-        border-radius: 6px;
+        border-radius: 3px;
         color: #fff;
-        font-size: 30px;
+        font-size: 12px;
         font-family: Source Han Sans CN, Source Han Sans CN-Regular;
         font-weight: 400;
         text-align: left;
         color: #2d7ce7;
-        line-height: 56px;
+        line-height: 22px;
         text-align: center;
-        border-radius: 6px;
+        border-radius: 3px;
         border: 2px solid #2d7ce7;
       }
       .toll_centen_right_cl9_1 {
-        margin-left: 16px;
+        margin-left: 6px;
         display: inline-block;
-        width: 150px;
-        height: 50px;
+        width: 60px;
+        height: 20px;
         background: #f19f11;
-        border-radius: 6px;
-        font-size: 30px;
+        border-radius: 3px;
+        font-size: 12px;
         font-family: Source Han Sans CN, Source Han Sans CN-Regular;
         font-weight: 400;
         text-align: center;
         color: #ffffff;
-        line-height: 50px;
+        line-height: 20px;
       }
       .toll_centen_right_cl9_2 {
-        margin-left: 16px;
+        margin-left: 6px;
         display: inline-block;
-        width: 150px;
-        height: 50px;
+        width: 60px;
+        height: 20px;
         background: #ffffff;
         border: 2px solid #f19f11;
-        border-radius: 6px;
-        font-size: 30px;
+        border-radius: 3px;
+        font-size: 12px;
         font-family: Source Han Sans CN, Source Han Sans CN-Regular;
         font-weight: 400;
         text-align: center;
         color: #f19f11;
-        line-height: 50px;
+        line-height: 20px;
       }
     }
   }
   .toll_centen_t {
-    padding: 0 51px 0 51px;
+    padding: 0 20px 0 20px;
     .toll_centen_center {
       float: left;
-      font-size: 42px;
+      font-size: 14px;
       font-family: Source Han Sans CN, Source Han Sans CN-Regular;
       font-weight: 400;
       text-align: left;
       color: #333333;
-      line-height: 100px;
+      line-height: 40px;
     }
     .toll_centen_r {
       float: right;
-      border-radius: 6px;
+      border-radius: 3px;
       font-family: Source Han Sans CN, Source Han Sans CN-Regular;
       font-weight: 400;
-      width: 150px;
-      height: 50px;
+      width: 70px;
+      height: 20px;
     }
     .toll_centen_rclose {
       float: right;
-      border-radius: 6px;
+      border-radius: 3px;
       background: #ffffff;
       border: 2px solid #2d7ce7;
       color: #2d7ce7;
       font-family: Source Han Sans CN, Source Han Sans CN-Regular;
       font-weight: 400;
-      width: 150px;
-      height: 50px;
+      width: 70px;
+      height: 20px;
     }
   }
   .postion_l {
-    padding-left: 41px;
+    padding-left: 16px;
     vertical-align: -webkit-baseline-middle;
-    width: 230px;
-    height: 100px;
-    font-size: 44px;
+    width: 92px;
+    height: 40px;
+    font-size: 18px;
     font-family: Source Han Sans CN, Source Han Sans CN-Medium;
     font-weight: 500;
     text-align: left;
     color: #333333;
-    line-height: 100px;
+    line-height: 40px;
     .postion_l_icon {
       display: inline-block;
-      width: 36px;
-      height: 40px;
-      margin-right: 5px;
+      width: 14px;
+      height: 16px;
+      margin-right: 2px;
     }
   }
   .postion_c {
-    font-size: 36px;
-    margin-left: 30px;
-    width: 300px;
-    height: 100px;
+    font-size: 14px;
+    margin-left: 12px;
+    width: 120px;
+    height: 35px;
     background: #4287fe;
-    border-radius: 50px;
+    border-radius: 20px;
   }
   .postion_r {
     float: right;
-    margin-left: 25px;
-    font-size: 36px;
-    width: 210px;
-    height: 100px;
+    margin-right: 20px;
+    margin-top: 15px;
+    font-size: 14px;
+    width: 84px;
+    height: 35px;
     background: #4287fe;
-    border-radius: 50px;
+    border-radius: 20px;
   }
 }
 </style>

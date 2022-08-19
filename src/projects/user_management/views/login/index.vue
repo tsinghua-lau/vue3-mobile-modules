@@ -36,39 +36,40 @@
   </div>
 </template>
 <script setup>
-import { ref, onMounted,getCurrentInstance } from 'vue';
+import { ref, onMounted, getCurrentInstance } from 'vue';
 import SIdentify from '../../components/verification/index.vue';
-import {load} from '../../components/loading/loading.js'
+import { load } from '../../components/loading/loading.js';
 const { proxy } = getCurrentInstance();
+import { useRoute, useRouter } from 'vue-router';
 
-import { Notify,Toast } from 'vant';
+import { Notify, Toast } from 'vant';
 
-onMounted(()=>{
-    refreshCode();
-    Toast('提示内容');
+onMounted(() => {
+  refreshCode();
+  Toast('提示内容');
 
-    // Notify({ type: 'danger', message: '通知内容' , position: 'center',background:'pink',});
-})
+  // Notify({ type: 'danger', message: '通知内容' , position: 'center',background:'pink',});
+});
 
-const phone = ref('');//手机号
-const graphics = ref('');//图形验证
-const sms = ref('');//短信验证
-let identifyCode = ref('');//图片字母
-const checked = ref(true);//用户协议
-
+const phone = ref(''); //手机号
+const graphics = ref(''); //图形验证
+const sms = ref(''); //短信验证
+let identifyCode = ref(''); //图片字母
+const checked = ref(true); //用户协议
+const route = useRoute();
+const router = useRouter();
 //登录
-const login = ()=>{
-   proxy.$mybus.emit('test', '组件传值~~~');
-  console.log('登录');
-}
+const login = () => {
+  proxy.$mybus.emit('test', '组件传值~~~');
+  router.push({
+    path: '/user',
+  });
+};
 
 //获取验证码
-const getNum = ()=>{
-
-}
+const getNum = () => {};
 // 验证码规则
 let identifyCodes = ref('3456789ABCDEFGHGKMNPQRSTUVWXY');
-
 
 //刷新验证码
 const refreshCode = () => {

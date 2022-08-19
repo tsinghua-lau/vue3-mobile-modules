@@ -2,8 +2,10 @@
   <div style="display: inline-block">
     <div class="toll_centen_top">
       <span class="toll_centen_top_left">
-        <span class="toll_centen_top_left_left" v-show="props.msg == '苏高速'">{{ props.msg }}</span>
-        <span class="toll_centen_top_left_left2" v-show="props.msg == '国家高速'">{{ props.msg }}</span>
+        <span class="toll_centen_top_left_left"
+              v-show="props.msg == '苏高速'">{{ props.msg }}</span>
+        <span class="toll_centen_top_left_left2"
+              v-show="props.msg == '国家高速'">{{ props.msg }}</span>
         <span class="toll_centen_top_left_centent">{{ this.ld }}</span>
         <span class="toll_centen_top_left_right">{{ this.ldt }}</span>
       </span>
@@ -24,12 +26,12 @@ onMounted(() => {});
 </script>
 <style lang="less" scoped>
 .toll_centen_top {
-  height: 150px;
-  padding-left: 50px;
+  height: 60px;
+  padding-left: 20px;
   .toll_centen_top_left {
-    font-size: 28px;
-    width: 144px;
-    height: 138px;
+    font-size: 12px;
+    width: 58px;
+    height: 55px;
     display: flex;
     flex-direction: column;
     span {
@@ -39,27 +41,27 @@ onMounted(() => {});
     .toll_centen_top_left_left {
       background-color: #f0dc01;
       color: #000000;
-      border-top-left-radius: 12px;
-      border-top-right-radius: 12px;
-      height: 42px;
-      line-height: 45px;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      height: 18px;
+      line-height: 18px;
     }
     .toll_centen_top_left_left2 {
       background-color: #ec543b;
       color: #fff;
-      border-top-left-radius: 12px;
-      border-top-right-radius: 12px;
-      height: 42px;
-      line-height: 45px;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      height: 18px;
+      line-height: 18px;
     }
     .toll_centen_top_left_centent {
-      font-size: 48px;
+      font-size: 18px;
     }
     .toll_centen_top_left_right {
-      border-bottom-left-radius: 12px;
-      border-bottom-right-radius: 12px;
-      line-height: 27px;
-      height: 42px;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+      line-height: 13px;
+      height: 16px;
     }
     .toll_centen_top_left_centent,
     .toll_centen_top_left_right {

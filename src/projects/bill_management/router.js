@@ -1,15 +1,18 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import Home from './views/Home.vue';
+import { createRouter, createWebHashHistory } from 'vue-router'
+const routes = [
+  {
+    path: '/',
+    component: () => import('./views/chargeList/index.vue'),
+    meta: {
+      title: '费用列表',
+    }
+  },
 
-Vue.use(Router);
+]
 
-export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home,
-    },
-  ],
-});
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes
+})
+
+export default router

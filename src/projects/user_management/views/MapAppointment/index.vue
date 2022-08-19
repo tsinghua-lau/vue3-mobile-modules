@@ -185,9 +185,6 @@ const confirmPicker = () => {
     position: absolute;
     bottom: 90px;
     z-index: 100;
-    border-top-right-radius: 25px;
-    border-top-left-radius: 25px;
-    border-bottom-right-radius: 25px;
-    border-bottom-left-radius: 25px;
+    border-radius: 25px;
 }
 </style>

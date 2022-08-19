@@ -1,5 +1,6 @@
 <template>
-  <van-tabbar v-model="active" @change="onChange">
+  <van-tabbar v-model="active"
+              @change="onChange">
     <van-tabbar-item>
       <span>高速地图</span>
       <template #icon="props">
@@ -54,7 +55,7 @@ const icon = {
   around_inactive: require('../../images/around.png'),
 };
 const onChange = index => {
-  const path = ['/', '/appointment', '/rescue', '/route', 'around'];
+  const path = ['/base', '/appointment', '/rescue', '/route', 'around'];
 
   // if(index!==0){
   //   Toast('暂未集成')
@@ -67,26 +68,32 @@ const onChange = index => {
     path: path[index],
   });
 
-
+  //重置地图
   proxy.$mybus.emit('resetMap', '');
 
-  //加载选择路线 --- 路线预约
+  //反镂空
+  proxy.$mybus.emit('hollowOut', '');
+
+  //重绘江苏省
+  proxy.$mybus.emit('searchAndBounds', '');
+
+  //加载选择路线
   if (index == 1) {
     setTimeout(() => {
-      //初始化路线选择组件
       proxy.$mybus.emit('selectLine', '');
     }, 500);
   } else {
-    //注销路线选择组件
-    proxy.$mybus.emit('delMapObj', 'marker');
+    proxy.$mybus.emit('delMapObj', '');
   }
 
   ///加载人员所在定位以及附近路线
   if (index == 2) {
     setTimeout(() => {
       // proxy.$mybus.emit('selectDoubleLine', '');
-      proxy.$mybus.emit('makenowMark', '');
+      // proxy.$mybus.emit('makenowMark', '');
     }, 500);
+  } else {
+    proxy.$mybus.emit('delMapCar', '');
   }
 };
 onMounted(() => {});

@@ -17,7 +17,8 @@ window._AMapSecurityConfig = {
 import AMapLoader from '@amap/amap-jsapi-loader';
 import { makeMark } from '@mlgj/hooks/czMap/index';
 import { selectLine, resetMap, hollowOut, getUserLocation, delMapObj } from '@mlgj/hooks/appointment/index';
-import { makenowMark, makeCarMark, selectDoubleLine } from '@mlgj/hooks/rescue/index';
+import { makeCarMark, selectDoubleLine, delMapCar } from '@mlgj/hooks/rescue/index';
+import { makebaseMark } from '@mlgj/hooks/base/index';
 import { onBeforeMount, onMounted, ref, getCurrentInstance } from 'vue';
 const { proxy } = getCurrentInstance();
 // 地图容器
@@ -30,7 +31,7 @@ onBeforeMount(() => {
     // console.log(data);
   });
 
-//------------------公共方法----------------------------
+  //------------------公共方法----------------------------
   //重置地图
   proxy.$mybus.on('resetMap', data => {
     resetMap(map);
@@ -46,23 +47,17 @@ onBeforeMount(() => {
     // searchAndBounds('江苏省');
   });
 
-//------------------路况预约----------------------------
- //路线选择
+  //------------------路况预约----------------------------
+  //路线选择
   proxy.$mybus.on('selectLine', data => {
     selectLine(map);
   });
 
-   //删除mark对象
+  //删除mark对象
   proxy.$mybus.on('delMapObj', data => {
     delMapObj(map);
   });
-
-//------------------救援服务----------------------------
-  //添加当前人员标记
-  proxy.$mybus.on('makenowMark', data => {
-    makenowMark(map);
-  });
-
+  //------------------救援服务----------------------------
   //添加救援车辆
   proxy.$mybus.on('makeCarMark', data => {
     makeCarMark(map);
@@ -71,6 +66,16 @@ onBeforeMount(() => {
   //绘制救援路线
   proxy.$mybus.on('selectDoubleLine', data => {
     selectDoubleLine(map);
+  });
+
+  //删除救援车辆
+  proxy.$mybus.on('delMapCar', data => {
+    delMapCar(map);
+  }); 
+
+  //------------------基础管理---------------------------- 
+  proxy.$mybus.on('makebaseMark', type => {
+    makebaseMark(type, map, proxy);
   });
 
   //地图初始化
@@ -88,7 +93,6 @@ onBeforeMount(() => {
     });
 });
 onMounted(() => {});
-
 //行政区查询容器
 var district;
 //行政区边界数据暂存
@@ -223,10 +227,10 @@ function searchAndBounds(dis) {
   height: 100%;
 }
 
-:deep(.amap-geolocation-con){
-    top: 54% !important;
-    left: 85% !important;
-    z-index: 2004 !important;
+:deep(.amap-geolocation-con) {
+  top: 54% !important;
+  left: 85% !important;
+  z-index: 2004 !important;
 }
 #container {
   width: 100%;

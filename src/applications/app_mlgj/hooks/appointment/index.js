@@ -235,10 +235,11 @@ export const delMapObj = map => {
   // console.log(appiontment.allMarks);
   // map.remove(appiontment.allMarks)
   // appiontment.allMarks = [];
-  console.log(appiontment.allLines);
-  if (appiontment.allLines[0]) {
-    appiontment.allLines[0].close();
-    appiontment.allLines[0].destroy();
-    appiontment.allLines = [];
+  console.log('有',appiontment.allLines.length,'条线');
+  for (let i = 0; i < appiontment.allLines.length; i++) {
+    appiontment.allLines[i].close();
+    appiontment.allLines[i].destroy();
   }
+  appiontment.allLines = [];
+
 };

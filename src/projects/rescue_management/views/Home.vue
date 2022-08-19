@@ -9,11 +9,18 @@
     </div>
     <div class="line"></div>
 
-    <div :class="state==2?'request-btn statehidden':'request-btn'">
-      <img :class="state>0?'left-more coset-btnimg':'coset-btnimg'"
+    <div :class="state==0?'request-btn':'request-btn statehidden'">
+      <img class="coset-btnimg"
            src="../images/phone.png"
            alt="" />
-      <span @click="showDialogEdit">{{text}}</span>
+      <span @click="showDialogEdit">如需帮助,请拨96777</span>
+    </div>
+
+    <div :class="state==1?'request-btn':'request-btn statehidden'">
+      <img class="left-more coset-btnimg"
+           src="../images/requestrescue.png"
+           alt="" />
+      <span @click="showDialogEdit">请求救援</span>
     </div>
 
     <div :class="state==2?'requesting-btn':'requesting-btn statehidden'">
@@ -23,13 +30,9 @@
              alt="" />
         <span>正在救援中...</span>
       </div>
-      <sapn class="notice">可在公众号中发送位置浏息进行互动</sapn>
+      <span class="notice">可在公众号中发送位置浏息进行互动</span>
     </div>
 
-  </div>
-  <div class="adress-now">
-    <van-icon name="aim"
-              color="#1989fa" />
   </div>
 
   <!-- 您未在高速上顶部提示 -->
@@ -74,7 +77,6 @@ const { proxy, ctx } = getCurrentInstance();
 const route = useRoute();
 const router = useRouter();
 
-const text = ref('如需帮助,请拨96777');
 const state = ref(0);
 const show = ref(false);
 
@@ -84,7 +86,6 @@ const showDialogEdit = () => {
     show.value = true;
   } else {
     state.value = 1;
-    text.value = '请求救援';
   }
 };
 //取消救援
@@ -94,7 +95,6 @@ const closeDialogEdit = () => {
 
 //确认救援
 const handleRescue = () => {
-  text.value = '救援中...';
   state.value = 2;
   show.value = false;
   Toast('正在救援中...');
@@ -109,11 +109,11 @@ const goToChargingstandard = () => {
 
 //显示当前状态
 const showState = () => {
-  if (state.value == 0) {
-    text.value = '如需帮助,请拨96777';
-  } else if (state.value == 1) {
-    text.value = '请求救援';
-  }
+  // if (state.value == 0) {
+  //   text.value = '如需帮助,请拨96777';
+  // } else if (state.value == 1) {
+  //   text.value = '请求救援';
+  // }
 };
 
 // let state = reactive({
@@ -133,19 +133,6 @@ const showState = () => {
 //       }
 //     }, 1000);
 //   });
-
-//初始化地图
-// const initMap = () => {
-//   state.map = new AMap.Map('container', {
-//     zoom: 7.5,
-//     zooms: [7, 15],
-//     viewMode: '3D',
-//     // pitch: 10,
-//     // zIndex: 100,
-//     center: [119.20058, 32.98972],
-//     mapStyle: 'amap://styles/80285d8f601c5dc8a2943c3720108b0e',
-//   });
-// };
 
 onMounted(() => {
   // initMap();
@@ -172,7 +159,7 @@ onMounted(() => {
   margin-left: 15px;
   background: rgba(255, 255, 255, 0.9);
   border-radius: 15px;
-  bottom: 100px;
+  bottom: 82px;
   height: 60px;
   box-shadow: 0px 8px 20px 0px rgba(59, 118, 239, 0.3);
   z-index: 999;
@@ -201,10 +188,9 @@ onMounted(() => {
 .coset-btnimg2 {
   height: 16px;
   margin-right: 6px;
-  // vertical-align: middle;
-  // margin-top: 22px;
-  // float: left;
-  margin-left: 20px;
+  float: left;
+  margin-left: 48px;
+  margin-top: 2px;
 }
 
 .coset-btn {
@@ -243,6 +229,9 @@ onMounted(() => {
   line-height: 20px;
   text-align: center;
   // display: none;
+}
+.requesting-btn div span {
+  float: left;
 }
 
 .cost-dialog {

@@ -56,6 +56,13 @@ const routes = [
       title: '防疫点',
     }
   },
+  {
+    path: '/searchhtml',
+    component: () => import('./components/searchHtml/index.vue'),
+    meta: {
+      title: '搜索',
+    }
+  },
 ]
 
 const router = createRouter({

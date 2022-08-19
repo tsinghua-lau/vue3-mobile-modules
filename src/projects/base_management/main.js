@@ -4,14 +4,19 @@ import {
 import App from './App.vue';
 import router from './router';
 import store from './store';
+import 'amfe-flexible';
+
 import mitt from "mitt";
 import '../../styles/common.less';
+import 'amfe-flexible';
 // 导入vant包 和其相关样式
 import {
+  Row,Icon,Col,
+  Popup,
   Button,
   Cell,
   Calendar,Search,
-  Tabbar, TabbarItem, Field, CellGroup,Checkbox,Notify,Toast,Row,Icon,Tab, Tabs,Grid, GridItem,Col,Popup
+  Tabbar, TabbarItem, Field, CellGroup,Checkbox,Notify,Toast,Tab, Tabs,Grid, GridItem
 } from 'vant';
 import 'vant/lib/index.css';
 import '@/SvgIcon/index.js';

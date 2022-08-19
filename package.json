@@ -7,12 +7,12 @@
 
     "dev:user": "cross-env PROJECT_NAME=user_management vue-cli-service serve",
     "dev:notice": "cross-env PROJECT_NAME=notice_management vue-cli-service serve",
-    "dev:bill": "cross-env PROJECT_NAME=bill_magement vue-cli-service serve",
+    "dev:bill": "cross-env PROJECT_NAME=bill_management vue-cli-service serve",
     "dev:rescue": "cross-env PROJECT_NAME=rescue_management vue-cli-service serve",
     "dev:base": "cross-env PROJECT_NAME=base_management vue-cli-service serve",
     "build:user": "cross-env PROJECT_NAME=user_management vue-cli-service build",
     "build:notice": "cross-env PROJECT_NAME=notice_management vue-cli-service build",
-    "build:bill": "cross-env PROJECT_NAME=bill_magement vue-cli-service build",
+    "build:bill": "cross-env PROJECT_NAME=bill_management vue-cli-service build",
     "build:rescue": "cross-env PROJECT_NAME=rescue_management vue-cli-service build",
     "build:base": "cross-env PROJECT_NAME=base_management vue-cli-service build",
 

@@ -4,14 +4,14 @@
       <div class="portrait">
         <img src="../../images/user.png" alt="" />
       </div>
-      <div class="name">
+      <div class="name" @click="goUrl('information')">
         茉莉高速用户
         <span class="man"> <img src="../../images/man.png" alt="" /></span>
         <!-- <span class="woman"><img src="../../images/woman.png" alt=""></span> -->
       </div>
     </div>
     <div class="user-info">
-      <div class="item">
+      <div class="item" @click="goUrl('vehicleOwnerInfo')">
         <div class="logo">
           <img src="../../images/mine.png" alt="" />
         </div>
@@ -83,45 +83,53 @@
     </div>
   </div>
 </template>
+
 <script setup>
 import { useRoute, useRouter } from 'vue-router';
-import {getCurrentInstance} from 'vue'
+import { getCurrentInstance } from 'vue';
+
 const { proxy, ctx } = getCurrentInstance();
 const route = useRoute();
 const router = useRouter();
 const goUrl = url => {
-   router.push({
-        path: '/'+url
-      });
+  router.push({
+    path: '/' + url,
+  });
 };
 </script>
+
 <style lang="less" scoped>
 @font-face {
   font-family: 'SourceHanSansCN';
   src: url('../../../../assets/fonts/SourceHanSansCN-Bold.otf');
   font-style: normal;
 }
+
 .box {
   width: 100%;
   height: 100%;
   overflow: hidden;
+
   .bg {
     width: 100%;
     height: 126px;
     background: url('../../images/map-bg.png');
     background-size: cover;
     position: relative;
+
     .portrait {
       width: 60px;
       height: 60px;
       position: absolute;
       left: 20px;
       top: 40px;
+
       img {
         width: 100%;
         height: 100%;
       }
     }
+
     .name {
       font-size: 15px;
       position: absolute;
@@ -129,6 +137,7 @@ const goUrl = url => {
 
       top: 56px;
       font-weight: 600;
+
       .man {
         display: inline-block;
         width: 13px;
@@ -136,6 +145,7 @@ const goUrl = url => {
         position: absolute;
         top: 4px;
         right: -17px;
+
         img {
           width: 100%;
           height: 100%;
@@ -143,6 +153,7 @@ const goUrl = url => {
       }
     }
   }
+
   .user-info {
     background: #f6f7f8;
     width: 100%;
@@ -164,15 +175,18 @@ const goUrl = url => {
       border-bottom-left-radius: 5px;
       border-bottom-right-radius: 5px;
       margin-top: 10px;
+
       .logo {
         float: left;
         width: 16px;
         height: 18px;
+
         img {
           width: 100%;
           height: 100%;
         }
       }
+
       .label {
         float: left;
         font-size: 15px;
@@ -180,17 +194,20 @@ const goUrl = url => {
         padding-top: 2px;
         font-family: 'SourceHanSansCN';
       }
+
       .right {
         width: 12px;
         height: 18px;
         float: right;
         margin-top: -3px;
+
         img {
           width: 100%;
           height: 100%;
         }
       }
     }
+
     .item-group {
       width: 90%;
       margin-left: 5%;
@@ -204,6 +221,7 @@ const goUrl = url => {
       border-bottom-right-radius: 5px;
       margin-top: 10px;
       height: 187px;
+
       .items {
         width: 100%;
         box-sizing: border-box;
@@ -211,15 +229,18 @@ const goUrl = url => {
         height: 50px;
         line-height: 50px;
         margin-top: 10px;
+
         .logo {
           float: left;
           width: 16px;
           height: 18px;
+
           img {
             width: 100%;
             height: 100%;
           }
         }
+
         .label {
           float: left;
           font-size: 15px;
@@ -227,10 +248,12 @@ const goUrl = url => {
           padding-top: 2px;
           font-family: 'SourceHanSansCN';
         }
+
         .right {
           width: 12px;
           height: 18px;
           float: right;
+
           img {
             width: 100%;
             height: 100%;

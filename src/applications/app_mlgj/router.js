@@ -1,13 +1,21 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
-const routes = [
-  {
+import {
+  createRouter,
+  createWebHashHistory
+} from 'vue-router'
+const routes = [{
     path: '/',
-    // component: () => import('../../projects/user_management/views/login/index.vue'),
-    // component: () => import('./components/JsMap/index.vue'),
-    component: () => import('../../projects/user_management/views/test.vue'),
+    redirect: '/base',
     meta: {
-      title: '登录',
-    }
+      title: '高速地图',
+    },
+    children: [{
+      path: 'base',
+      name: 'Base',
+      component: () => import('../../projects/base_management/views/Home.vue'),
+      meta: {
+        title: '高速地图',
+      }
+    }]
   },
   {
     path: '/appointment',
@@ -22,6 +30,22 @@ const routes = [
     component: () => import('../../projects/rescue_management/views/Home.vue'),
     meta: {
       title: '救援服务',
+    }
+  },
+  {
+    path: '/base',
+    name: 'Base',
+    component: () => import('../../projects/base_management/views/Home.vue'),
+    meta: {
+      title: '基础服务',
+    },
+  },
+  {
+    path: '/Chargingstandard',
+    name: 'Chargingstandard',
+    component: () => import('../../projects/rescue_management/views/notice/Chargingstandard.vue'),
+    meta: {
+      title: '救援费用',
     }
   },
 ]

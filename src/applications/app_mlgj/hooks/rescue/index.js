@@ -1,26 +1,23 @@
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue';
 
+import { Toast } from 'vant';
 
-export const makenowMark = (map) => {
-  console.log(999999);
-var marker = new AMap.Marker({
-  icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
-  position: [118.723979,31.98926],
-  offset: new AMap.Pixel(-13, -30),
-});
-marker.setMap(map);
-};
+import { publicMarks} from '../common/index.js';
 
+let rescueCarMark = [];
 
 //添加救援车辆图标
 export const makeCarMark = (map) => {
   console.log('carcarcar');
 var marker = new AMap.Marker({
-  icon: 'cars.png',
+  icon: require('../../images/cars.png'),
   position: [118.723979,31.98926],
   offset: new AMap.Pixel(-13, -30),
 });
 marker.setMap(map);
+rescueCarMark.push(marker);
+
+
 };
 
 
@@ -52,3 +49,11 @@ export const selectDoubleLine = (map) =>{
 
 //   // map.setZoomAndCenter(14, [119.20058, 32.98972]);
 // }
+
+
+export const delMapCar = map => {
+  // console.log('car的数量:'+rescueCarMark.length+rescueCarMark)
+
+  map.remove(rescueCarMark);
+  rescueCarMark = [];
+};

@@ -1,18 +1,16 @@
 <template>
   <div id="box" style="">
     <svg-icon icon-class="通知" />
-    <br/>
+    <br />
     <JsMap />
-    <div class="title">
-      用户管理界面
-    </div>
-    <br/>
+    <div class="title">用户管理界面</div>
+    <br />
 
     <van-button type="primary" @click="send">接口请求</van-button>
-    <br/>
+    <br />
 
     <van-cell is-link @click="showPopup">展示弹出层</van-cell>
-    <br/>
+    <br />
 
     <van-popup position="bottom" :style="{ height: '30%' }" v-model:show="show">内容</van-popup>
     <!-- <van-cell title="选择单个日期" :value="date" @click="show = true" />
@@ -36,16 +34,15 @@ const showPopup = () => {
 
 let state = reactive({
   map: null,
-  date:''
+  date: '',
 });
-
 
 //测试api
 const send = () => {
   proxy.$mybus.emit('updata', '组件传值');
   getUserAuth({
     said: '872a53a8dacd42a5850ce477c4dd8b0d',
-    roadid: 'ff80818159af9032015a12535dda000f'
+    roadid: 'ff80818159af9032015a12535dda000f',
   }).then(res => {
     console.log(res);
   });
@@ -60,7 +57,7 @@ const initMap = () => {
     // pitch: 10,
     // zIndex: 100,
     center: [119.20058, 32.98972],
-    mapStyle: 'amap://styles/368c5674bcd88bac4a215b97d78e7b7e'
+    mapStyle: 'amap://styles/368c5674bcd88bac4a215b97d78e7b7e',
   });
 };
 
@@ -74,7 +71,7 @@ onMounted(() => {
   width: 100%;
   height: 1500px;
 }
-.title{
+.title {
   color: #000;
 }
 #box {

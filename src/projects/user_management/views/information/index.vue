@@ -25,17 +25,17 @@
       </div>
     </div>
 
-    <van-popup v-model:show="show" position="bottom" :style="{ height: '20%' }">
+    <van-popup v-model:show="show" position="bottom" :style="{ height: '20%' }" @close="confrimName">
       <div class="popup-box">
         <div class="text">输入昵称</div>
         <div class="input">
-          <van-field v-model="state.nickname" input-align="center" placeholder="请输入用户名" />
+          <van-field v-model="state.tempname" input-align="center" placeholder="请输入用户名" />
         </div>
         <div class="border"></div>
         <div class="cancle" @click="showPopup(0)">取消</div>
       </div>
     </van-popup>
-    <van-popup v-model:show="showSelect" position="bottom" :style="{ height: '30%' }">
+    <van-popup v-model:show="showSelect" position="bottom">
       <van-picker title="选择性别" @change="onChange" @confirm="closeSelect(1)" @cancel="closeSelect" :columns="columns" :default-index="0" />
     </van-popup>
   </div>
@@ -49,6 +49,7 @@ let state = reactive({
   nickname: '三毛', //昵称
   gender: '男性', //性别
   tempgenter: '男性',
+  tempname: '三毛',
 });
 
 const show = ref(false);
@@ -58,6 +59,7 @@ const showPopup = isShow => {
   if (isShow === 1) {
     show.value = true;
   } else {
+    debugger;
     show.value = false;
   }
 };
@@ -73,6 +75,15 @@ const closeSelect = type => {
 const onChange = (value, index) => {
   state.tempgenter = value;
   console.log(value);
+};
+const confrimName = () => {
+  if (state.tempname.replace(/^\s*/, '') == '') {
+    Toast('非法用户名');
+    return;
+  }
+  if (state.tempname !== state.nickname) {
+    state.nickname = state.tempname;
+  }
 };
 </script>
 <style lang="less" scoped>

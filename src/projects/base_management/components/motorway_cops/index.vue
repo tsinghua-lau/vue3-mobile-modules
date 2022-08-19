@@ -1,122 +1,127 @@
 <template>
   <div>
-    <div class="title_top">
+    <div class="title_top_m">
       <img class="tollimg" src="./../../icon/motorway_cops.png" />
       <span class="toll_gate_txt">高速交警</span>
-      <img src="./../../icon/close.png" class="closeButton" />
+      <img src="./../../icon/close.png" @click="showmarkerclick" class="closeButton" />
     </div>
     <div class="motorway_name">交警队名称</div>
-    <van-cell-group class="toll_centen_phone">
+    <van-cell-group class="toll_centen_phone_m">
       <div class="toll_centen_phone_l">地址</div>
       <div class="toll_centen_phone_r">G2高速公路无锡东收费站旁边</div>
     </van-cell-group>
-    <van-cell-group class="toll_centen_phone">
+    <van-cell-group class="toll_centen_phone_m">
       <div class="toll_centen_phone_l">联系电话</div>
       <div class="toll_centen_phone_r">13939393939</div>
     </van-cell-group>
-    <div style="margin-top:10px">
-      <span class="postion_l"><img class="postion_l_icon" src="../../icon/position.png" />20.55KM</span>
-      <van-button class="postion_r" color="#2d7ce7" round size="small">路线</van-button>
+    <div style="margin-top: 10px">
+      <span class="postion_l_m"><img class="postion_l_icon" src="../../icon/position.png" />20.55KM</span>
+      <van-button class="postion_r_m" color="#2d7ce7" round size="small">路线</van-button>
     </div>
   </div>
 </template>
 
+<script setup>
+const emit = defineEmits(['closeAdd']);
+
+const showmarkerclick = () => {
+  emit('closePubopsercops', false);
+};
+</script>
 
 <style lang="less">
-.title_top {
+.title_top_m {
   box-sizing: border-box;
   position: relative;
-  padding: 20px;
-  height: 158px;
+  padding: 10px;
+  height: 60px;
   background: linear-gradient(to bottom, #eaf0fa 0%, #fff 100%);
-  padding-left: 51px;
-  padding-top: 38px;
+  padding-left: 20px;
+  padding-top: 20px;
   .tollimg {
     float: left;
-    width: 52px;
-    height: 52px;
+    width: 24px;
+    height: 24px;
   }
   .toll_gate_txt {
     float: left;
     margin-left: 10px;
-    vertical-align: super;
+    vertical-align: middle;
+    font-size: 18px;
     font-family: Source Han Sans CN, Source Han Sans CN-Regular;
   }
   .closeButton {
     float: right;
-    width: 31.88px;
-    height: 31.88px;
-    margin-right: 50.56px;
+    width: 11px;
+    height: 11px;
+    margin-right: 20px;
+    margin-top: 5px;
   }
 }
 .motorway_name {
   // width: 200%;
-  height: 72px;
-  padding-left: 52px;
-  font-size: 60px;
+  height: 35px;
+  padding-left: 20px;
+  font-size: 28px;
   font-family: Source Han Sans CN, Source Han Sans CN-Regular;
   font-weight: 400;
   text-align: left;
   color: #333333;
 }
-.toll_centen_phone {
-  height: 130px;
+.toll_centen_phone_m {
+  height: 40px;
   background: rgba(255, 255, 255, 0.9);
   border-radius: 26px;
   margin: 21px 21px 0 21px;
   .toll_centen_phone_l {
     height: 100%;
-    font-size: 42px;
+    font-size: 22px;
     font-family: Source Han Sans CN, Source Han Sans CN-Regular;
     font-weight: 400;
     text-align: left;
     color: #333333;
-    line-height: 130px;
+    line-height: 35px;
     float: left;
-    padding-left: 40px;
+    // padding-left: 20px;
   }
   .toll_centen_phone_r {
     height: 100%;
-    font-size: 42px;
+    font-size: 18px;
     font-family: Source Han Sans CN, Source Han Sans CN-Regular;
     font-weight: 400;
     text-align: right;
     color: #2d7ce7;
-    line-height: 130px;
+    line-height: 35px;
     float: right;
-    padding-right: 40px;
+    padding-right: 0px;
   }
 }
-.postion_l {
-  padding-left: 41px;
+.postion_l_m {
+  padding-left: 20px;
   vertical-align: -webkit-baseline-middle;
   height: 100px;
-  font-size: 44px;
+  font-size: 22px;
   font-family: Source Han Sans CN, Source Han Sans CN-Medium;
   font-weight: 500;
   text-align: left;
   color: #333333;
-  line-height: 100px;
+  line-height: 40px;
   .postion_l_icon {
     display: inline-block;
-    width: 36px;
-    height: 40px;
+    width: 22px;
+    height: 22px;
     margin-right: 5px;
   }
 }
-.postion_c {
-  margin-left: 30px;
-  width: 310px;
-  height: 100px;
-  font-size: 36px;
-}
-.postion_r {
+.postion_r_m {
   float: right;
-  margin-right: 50px;
-  width: 250px;
-  height: 100px;
+  margin-top: 10px;
+  margin-right: 20px;
+  width: 90px;
+  height: 35px;
+  line-height: 35px;
   background: #4287fe;
   border-radius: 50px;
-  font-size: 36px;
+  font-size: 18px;
 }
 </style>

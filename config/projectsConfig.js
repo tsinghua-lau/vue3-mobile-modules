@@ -102,10 +102,10 @@ const config = {
     }
   },
   //开票管理
-  ball_magement: {
+  bill_management: {
     pages: {
       index: {
-        entry: "src/projects/ball_magement/main.js",
+        entry: "src/projects/bill_management/main.js",
         template: "public/index.html",
         filename: "index.html"
       }

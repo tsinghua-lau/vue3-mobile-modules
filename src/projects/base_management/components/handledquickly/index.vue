@@ -1,149 +1,154 @@
 <template>
   <div>
-    <div class="title_top">
+    <div class="title_top_had">
       <img class="tollimg" src="./../../icon/serveicon.png" />
       <span class="toll_gate_txt">事故快处点</span>
-      <img src="./../../icon/close.png" class="closeButton" />
+      <img src="./../../icon/close.png" @click="closepuop" class="closeButton" />
     </div>
     <div>
       <highwaySign msg="国家高速" />
-      <span class="toll_centen_right">
+      <span class="toll_centen_right_had">
         <div>事故快处点名称</div>
         <div class="toll_centen_right_bottom">
           <span class="toll_centen_right_icon1">常驻</span>
         </div>
       </span>
     </div>
-    <van-cell-group class="toll_centen_phone">
+    <van-cell-group class="toll_centen_phone_had">
       <div class="toll_centen_phone_l">地址</div>
       <div class="toll_centen_phone_r">G2高速公路无锡东收费站旁边</div>
     </van-cell-group>
-    <van-cell-group class="toll_centen_phone">
+    <van-cell-group class="toll_centen_phone_had">
       <div class="toll_centen_phone_l">联系电话</div>
       <div class="toll_centen_phone_r">13939393939</div>
     </van-cell-group>
 
-    <div style="margin-top: 10px">
-      <span class="postion_l"><img class="postion_l_icon" src="../../icon/position.png" />20.55KM</span>
-      <van-button class="postion_r" color="#2d7ce7" round size="small">路线</van-button>
+    <div>
+      <span class="postion_l_had"><img class="postion_l_icon" src="../../icon/position.png" />20.55KM</span>
+      <van-button class="postion_r_had" color="#2d7ce7" round size="small">路线</van-button>
     </div>
   </div>
 </template>
 <script setup>
 import highwaySign from '../highway_sign.vue';
+const emit = defineEmits(['closeAdd']);
+const closepuop = () => {
+  emit('closePubopserhand', false);
+};
 </script>
 <style lang="less">
-.title_top {
+.title_top_had {
   box-sizing: border-box;
   position: relative;
-  padding: 20px;
-  height: 158px;
+  padding: 10px;
+  height: 60px;
   background: linear-gradient(to bottom, #eaf0fa 0%, #fff 100%);
-  padding-left: 51px;
-  padding-top: 38px;
+  padding-left: 20px;
+  padding-top: 20px;
   .tollimg {
     float: left;
-    width: 52px;
-    height: 52px;
+    width: 24px;
+    height: 24px;
   }
   .toll_gate_txt {
     float: left;
     margin-left: 10px;
-    vertical-align: super;
+    vertical-align: middle;
+    font-size: 18px;
     font-family: Source Han Sans CN, Source Han Sans CN-Regular;
   }
   .closeButton {
     float: right;
-    width: 31.88px;
-    height: 31.88px;
-    margin-right: 50.56px;
+    width: 11px;
+    height: 11px;
+    margin-right: 20px;
+    margin-top: 5px;
   }
 }
-.toll_centen_right {
+.toll_centen_right_had {
   display: inline-block;
   //   width: calc(100% - 400px);
-  vertical-align: text-top;
+  vertical-align: bottom;
   div {
-    margin-left: 43px;
-    font-size: 60px;
+    margin-left: 22px;
+    font-size: 24px;
     font-family: Source Han Sans CN, Source Han Sans CN-Regular;
     font-weight: 400;
     text-align: left;
     color: #333333;
-    line-height: 56px;
+    line-height: 30px;
   }
   .toll_centen_right_bottom {
-    margin-top: 22px;
+    margin-top: 5px;
     .toll_centen_right_icon1 {
       display: inline-block;
-      width: 100px;
-      height: 50px;
+      width: 50px;
+      height: 25px;
       background: #2d7ce7;
-      border-radius: 6px;
+      border-radius: 3px;
       color: #fff;
-      font-size: 30px;
+      font-size: 16px;
       font-family: Source Han Sans CN, Source Han Sans CN-Regular;
       font-weight: 400;
       text-align: left;
-      color: #ffffff;
-      line-height: 56px;
+      line-height: 25px;
       text-align: center;
-      border-radius: 6px;
     }
   }
 }
-.toll_centen_phone {
-  height: 130px;
+.toll_centen_phone_had {
+  height: 55px;
   background: rgba(255, 255, 255, 0.9);
   border-radius: 26px;
-  margin: 0 21px 0 21px;
+  margin: 0 11px 0 11px;
   .toll_centen_phone_l {
     height: 100%;
-    font-size: 42px;
+    font-size: 18px;
     font-family: Source Han Sans CN, Source Han Sans CN-Regular;
     font-weight: 400;
     text-align: left;
     color: #333333;
-    line-height: 130px;
+    line-height: 55px;
     float: left;
-    padding-left: 40px;
+    padding-left: 11px;
   }
   .toll_centen_phone_r {
     height: 100%;
-    font-size: 42px;
+    font-size: 18px;
     font-family: Source Han Sans CN, Source Han Sans CN-Regular;
     font-weight: 400;
     text-align: right;
     color: #2d7ce7;
-    line-height: 130px;
+    line-height: 55px;
     float: right;
-    padding-right: 40px;
+    padding-right: 11px;
   }
 }
-.postion_l {
-  padding-left: 41px;
+.postion_l_had {
+  padding-left: 11px;
   vertical-align: -webkit-baseline-middle;
-  height: 100px;
-  font-size: 44px;
+  height: 40px;
+  font-size: 18px;
   font-family: Source Han Sans CN, Source Han Sans CN-Medium;
   font-weight: 500;
   text-align: left;
   color: #333333;
-  line-height: 100px;
+  line-height: 40px;
   .postion_l_icon {
     display: inline-block;
-    width: 36px;
-    height: 40px;
+    width: 18px;
+    height: 20px;
     margin-right: 5px;
   }
 }
-.postion_r {
+.postion_r_had {
   float: right;
-  margin-right: 50px;
-  width: 250px;
-  height: 100px;
+  margin-top: 10px;
+  margin-right: 20px;
+  width: 100px;
+  height: 40px;
   background: #4287fe;
-  border-radius: 50px;
-  font-size: 36px;
+  border-radius: 18px;
+  font-size: 18px;
 }
 </style>
