@@ -71,7 +71,7 @@ const closepuop = () => {
   vertical-align: bottom;
   div {
     margin-left: 22px;
-    font-size: 24px;
+    font-size: 22px;
     font-family: Source Han Sans CN, Source Han Sans CN-Regular;
     font-weight: 400;
     text-align: left;
@@ -87,7 +87,7 @@ const closepuop = () => {
       background: #2d7ce7;
       border-radius: 3px;
       color: #fff;
-      font-size: 16px;
+      font-size: 14px;
       font-family: Source Han Sans CN, Source Han Sans CN-Regular;
       font-weight: 400;
       text-align: left;
@@ -97,13 +97,13 @@ const closepuop = () => {
   }
 }
 .toll_centen_phone_had {
-  height: 55px;
+  height: 45px;
   background: rgba(255, 255, 255, 0.9);
   border-radius: 26px;
   margin: 0 11px 0 11px;
   .toll_centen_phone_l {
     height: 100%;
-    font-size: 18px;
+    font-size: 14px;
     font-family: Source Han Sans CN, Source Han Sans CN-Regular;
     font-weight: 400;
     text-align: left;
@@ -114,7 +114,7 @@ const closepuop = () => {
   }
   .toll_centen_phone_r {
     height: 100%;
-    font-size: 18px;
+    font-size: 14px;
     font-family: Source Han Sans CN, Source Han Sans CN-Regular;
     font-weight: 400;
     text-align: right;
@@ -128,7 +128,7 @@ const closepuop = () => {
   padding-left: 11px;
   vertical-align: -webkit-baseline-middle;
   height: 40px;
-  font-size: 18px;
+  font-size: 14px;
   font-family: Source Han Sans CN, Source Han Sans CN-Medium;
   font-weight: 500;
   text-align: left;
@@ -137,7 +137,7 @@ const closepuop = () => {
   .postion_l_icon {
     display: inline-block;
     width: 18px;
-    height: 20px;
+    height: 18px;
     margin-right: 5px;
   }
 }
@@ -149,6 +149,6 @@ const closepuop = () => {
   height: 40px;
   background: #4287fe;
   border-radius: 18px;
-  font-size: 18px;
+  font-size: 14px;
 }
 </style>

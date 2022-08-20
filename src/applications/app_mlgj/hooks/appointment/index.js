@@ -237,8 +237,15 @@ export const delMapObj = map => {
   // appiontment.allMarks = [];
   console.log('有',appiontment.allLines.length,'条线');
   for (let i = 0; i < appiontment.allLines.length; i++) {
-    appiontment.allLines[i].close();
-    appiontment.allLines[i].destroy();
+    try {
+     console.log(appiontment.allLines[i]);
+     debugger
+      appiontment.allLines[i].close();
+      appiontment.allLines[i].destroy();
+    } catch (error) {
+      
+    }
+
   }
   appiontment.allLines = [];
 

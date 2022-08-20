@@ -68,11 +68,11 @@ const closepuph = () => {
   }
 }
 .motorway_name_f {
-  height: 42px;
+  height: 28px;
   padding-left: 20px;
-  font-size: 24px;
+  font-size: 18px;
   font-family: Source Han Sans CN, Source Han Sans CN-Regular;
-  font-weight: 400;
+  font-weight: 500;
   text-align: left;
   color: #333333;
   .toll_centen_right_icon1 {
@@ -80,7 +80,7 @@ const closepuph = () => {
     width: 20px;
     height: 20px;
     background: #2d7ce7;
-    font-size: 14px;
+    font-size: 12px;
     font-family: Source Han Sans CN, Source Han Sans CN-Regular;
     font-weight: 400;
     text-align: left;
@@ -89,18 +89,19 @@ const closepuph = () => {
     text-align: center;
     border-radius: 3px;
     margin-left: 15px;
+    vertical-align: bottom;
   }
 }
 .grid_value {
-  height: 120px;
+  height: 110px;
   margin-left: 22px;
   margin-right: 11px;
   .serviocn_h {
-    width: 52px;
-    height: 52px;
+    width: 30px;
+    height: 30px;
   }
   .serviocn_t {
-    font-size: 16px;
+    font-size: 14px;
     font-family: Source Han Sans CN, Source Han Sans CN-Regular;
     font-weight: 400;
     text-align: center;
@@ -110,40 +111,43 @@ const closepuph = () => {
 }
 .f_bottom {
   .postion_l_f {
+    float: left;
     padding-left: 21px;
     vertical-align: -webkit-baseline-middle;
     width: 115px;
     height: 50px;
-    font-size: 22px;
+    font-size: 18px;
     font-family: Source Han Sans CN, Source Han Sans CN-Medium;
     font-weight: 500;
     text-align: left;
     color: #333333;
-    line-height: 50px;
+    line-height: 51px;
     .postion_l_f_icon {
       display: inline-block;
       width: 18px;
-      height: 20px;
+      height: 18px;
       margin-right: 5px;
     }
   }
   .postion_c_f {
-    font-size: 18px;
+    float: left;
+    font-size: 14px;
     margin-left: 10px;
-    width: 120px;
-    height: 50px;
+    width: 100px;
+    height: 32px;
     background: #4287fe;
-    border-radius: 25px;
+    border-radius: 15px;
+    margin-top: 5px;
   }
   .postion_r_f {
-    float: right;
-    margin-top: 7px;
-    margin-right: 12px;
-    font-size: 18px;
+    float: left;
+    margin-left: 10px;
+    font-size: 14px;
     width: 85px;
-    height: 50px;
+    height: 32px;
     background: #4287fe;
-    border-radius: 50px;
+    border-radius: 15px;
+    margin-top: 5px;
   }
 }
 </style>

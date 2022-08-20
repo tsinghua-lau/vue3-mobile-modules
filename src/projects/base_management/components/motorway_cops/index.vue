@@ -60,38 +60,38 @@ const showmarkerclick = () => {
 }
 .motorway_name {
   // width: 200%;
-  height: 35px;
+  height: 30px;
   padding-left: 20px;
-  font-size: 28px;
+  font-size: 22px;
   font-family: Source Han Sans CN, Source Han Sans CN-Regular;
   font-weight: 400;
   text-align: left;
   color: #333333;
 }
 .toll_centen_phone_m {
-  height: 40px;
+  height: 30px;
   background: rgba(255, 255, 255, 0.9);
   border-radius: 26px;
   margin: 21px 21px 0 21px;
   .toll_centen_phone_l {
     height: 100%;
-    font-size: 22px;
+    font-size: 18px;
     font-family: Source Han Sans CN, Source Han Sans CN-Regular;
     font-weight: 400;
     text-align: left;
     color: #333333;
-    line-height: 35px;
+    line-height: 30px;
     float: left;
     // padding-left: 20px;
   }
   .toll_centen_phone_r {
     height: 100%;
-    font-size: 18px;
+    font-size: 16px;
     font-family: Source Han Sans CN, Source Han Sans CN-Regular;
     font-weight: 400;
     text-align: right;
     color: #2d7ce7;
-    line-height: 35px;
+    line-height: 30px;
     float: right;
     padding-right: 0px;
   }
@@ -100,7 +100,7 @@ const showmarkerclick = () => {
   padding-left: 20px;
   vertical-align: -webkit-baseline-middle;
   height: 100px;
-  font-size: 22px;
+  font-size: 18px;
   font-family: Source Han Sans CN, Source Han Sans CN-Medium;
   font-weight: 500;
   text-align: left;
@@ -108,8 +108,8 @@ const showmarkerclick = () => {
   line-height: 40px;
   .postion_l_icon {
     display: inline-block;
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
     margin-right: 5px;
   }
 }
@@ -122,6 +122,6 @@ const showmarkerclick = () => {
   line-height: 35px;
   background: #4287fe;
   border-radius: 50px;
-  font-size: 18px;
+  font-size: 16px;
 }
 </style>

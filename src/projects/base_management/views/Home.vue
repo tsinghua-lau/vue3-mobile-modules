@@ -4,15 +4,15 @@
     <!-- <van-button type="primary">主要按钮</van-button> -->
     <!-- <van-cell is-link @click="showPopup">展示弹出层</van-cell> -->
     <!-- 收费站 -->
-    <van-popup :overlay="false" class="elles" v-model:show="show" position="bottom" :style="{ height: '47%' }">
+    <van-popup :overlay="false" class="elles" v-model:show="show" position="bottom" :style="{ height: '50%' }">
       <tollgate @closePubop="closePubop" />
     </van-popup>
     <!-- 服务区 -->
-    <van-popup :overlay="false" class="elles" v-model:show="showser" position="bottom" :style="{ height: '70%' }">
+    <van-popup :overlay="false" class="elles" v-model:show="showser" position="bottom" :style="{ height: '74%' }">
       <serves @closePubopser="closePubopser" />
     </van-popup>
     <!-- 高速交警 -->
-    <van-popup :overlay="false" class="elles" v-model:show="showcops" position="bottom" :style="{ height: '43%' }">
+    <van-popup :overlay="false" class="elles" v-model:show="showcops" position="bottom" :style="{ height: '47%' }">
       <motorway_cops @closePubopsercops="closePubopsercops" />
     </van-popup>
     <!-- 事故快处点 -->
@@ -24,19 +24,19 @@
       <Ferryhtml @closePubopserferry="closePubopserferry" />
     </van-popup>
     <!-- 管制 -->
-    <van-popup :overlay="false" class="elles" v-model:show="showtraff" position="bottom" :style="{ height: '44%' }">
+    <van-popup :overlay="false" class="elles" v-model:show="showtraff" position="bottom" :style="{ height: '47%' }">
       <trafficcontrol @closePubopsertraff="closePubopsertraff" />
     </van-popup>
     <!-- 防疫点 -->
-    <van-popup :overlay="false" class="elles" v-model:show="showepid" position="bottom" :style="{ height: '38%' }">
+    <van-popup :overlay="false" class="elles" v-model:show="showepid" position="bottom" :style="{ height: '44%' }">
       <epidemicprevention @closePubopserepid="closePubopserepid" />
     </van-popup>
     <!-- 高速视频 -->
-    <van-popup :overlay="false" class="elles" v-model:show="showfvid" position="bottom" :style="{ height: '38%' }">
+    <van-popup :overlay="false" class="elles" v-model:show="showfvid" position="bottom" :style="{ height: '44%' }">
       <ferryvideo @closePubopserfvid="closePubopserfvid" />
     </van-popup>
     <!-- 公路视频 -->
-    <van-popup :overlay="false" class="elles" v-model:show="showfvid2" position="bottom" :style="{ height: '38%' }">
+    <van-popup :overlay="false" class="elles" v-model:show="showfvid2" position="bottom" :style="{ height: '44%' }">
       <ferryvideogl @closePubopserfvidg2="closePubopserfvidg2" />
     </van-popup>
     <!-- 搜索页 -->
@@ -264,7 +264,7 @@ onMounted(() => {
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 35%;
+  height: 38%;
   z-index: 1;
 }
 /deep/ .van-popup.listh {

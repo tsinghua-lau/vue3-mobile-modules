@@ -196,92 +196,13 @@ const gobackll = () => {
   }
 }
 .toll_centen_s_top {
-  height: 380px;
+  height: 290px;
   background: rgba(255, 255, 255, 0.9);
   border-radius: 26px;
   box-shadow: 0px 5px 20px 0px rgba(59, 118, 239, 0.1);
   margin: 0px 21px 0 21px;
   padding-top: 10px;
   overflow: hidden;
-  .search_on {
-    width: 315px;
-    height: 65px;
-    margin: 10px 10px 10px 10px;
-    .plzh {
-      float: left;
-      // height: 100%;
-      div {
-        width: 100%;
-      }
-    }
-    .plzh_icon {
-      width: 20px;
-      .plzh_icon_lon {
-        width: 20px;
-        height: 15px;
-        vertical-align: super;
-        margin-top: 6px;
-      }
-    }
-    .plzh_content {
-      width: calc(100% - 70px);
-      margin-left: 10px;
-      .plzh_content_top {
-        font-size: 20px;
-        font-family: Source Han Sans CN, Source Han Sans CN-Medium;
-        font-weight: 600;
-        text-align: left;
-        color: #333333;
-      }
-      .plzh_content_bottom {
-        font-size: 18px;
-        font-family: Source Han Sans CN, Source Han Sans CN-Regular;
-        font-weight: 400;
-        text-align: left;
-        color: #666666;
-        line-height: 25px;
-      }
-    }
-  }
-}
-.toll_centen_s_bottom {
-  height: 320px;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 26px;
-  box-shadow: 0px 5px 20px 0px rgba(59, 118, 239, 0.1);
-  margin: 11px 21px 0 21px;
-  overflow: hidden;
-  .postionlin {
-    margin-left: 20px;
-    padding-top: 20px;
-    font-size: 22px;
-    font-weight: 600;
-  }
-  .tabclse_s {
-    margin-top: 10px;
-    text-align: center;
-    margin-left: 18px;
-    div {
-      font-size: 14px;
-      font-family: Source Han Sans CN, Source Han Sans CN-Regular;
-      font-weight: 400;
-      color: #333333;
-    }
-    div.active {
-      font-size: 16px;
-      font-family: Source Han Sans CN, Source Han Sans CN-Regular;
-      font-weight: 700;
-      color: #333333;
-    }
-    .tabclse_bottom {
-      margin: 0 auto;
-      width: 22px;
-      height: 5px;
-      background: linear-gradient(#1a72f8 0%, #1ca7ff 100%);
-      border-radius: 6px;
-      margin-top: 4px;
-    }
-  }
   .search_on {
     width: 315px;
     height: 45px;
@@ -303,10 +224,89 @@ const gobackll = () => {
       }
     }
     .plzh_content {
-      width: calc(100% - 30px);
+      width: calc(100% - 70px);
       margin-left: 10px;
       .plzh_content_top {
-        font-size: 20px;
+        font-size: 16px;
+        font-family: Source Han Sans CN, Source Han Sans CN-Medium;
+        font-weight: 600;
+        text-align: left;
+        color: #333333;
+      }
+      .plzh_content_bottom {
+        font-size: 14px;
+        font-family: Source Han Sans CN, Source Han Sans CN-Regular;
+        font-weight: 400;
+        text-align: left;
+        color: #666666;
+        line-height: 25px;
+      }
+    }
+  }
+}
+.toll_centen_s_bottom {
+  height: 300px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 26px;
+  box-shadow: 0px 5px 20px 0px rgba(59, 118, 239, 0.1);
+  margin: 11px 21px 0 21px;
+  overflow: hidden;
+  .postionlin {
+    margin-left: 15px;
+    padding-top: 20px;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .tabclse_s {
+    margin-top: 10px;
+    text-align: center;
+    margin-left: 9px;
+    div {
+      font-size: 14px;
+      font-family: Source Han Sans CN, Source Han Sans CN-Regular;
+      font-weight: 400;
+      color: #333333;
+    }
+    div.active {
+      font-size: 14px;
+      font-family: Source Han Sans CN, Source Han Sans CN-Regular;
+      font-weight: 600;
+      color: #333333;
+    }
+    .tabclse_bottom {
+      margin: 0 auto;
+      width: 22px;
+      height: 5px;
+      background: linear-gradient(#1a72f8 0%, #1ca7ff 100%);
+      border-radius: 6px;
+      margin-top: 4px;
+    }
+  }
+  .search_on {
+    width: 315px;
+    height: 38px;
+    margin: 15px 10px 10px 15px;
+    .plzh {
+      float: left;
+      // height: 100%;
+      div {
+        width: 100%;
+      }
+    }
+    .plzh_icon {
+      width: 20px;
+      .plzh_icon_lon {
+        width: 20px;
+        height: 15px;
+        vertical-align: super;
+        margin-top: 6px;
+      }
+    }
+    .plzh_content {
+      width: calc(100% - 40px);
+      margin-left: 10px;
+      .plzh_content_top {
+        font-size: 18px;
         font-family: Source Han Sans CN, Source Han Sans CN-Medium;
         font-weight: 600;
         text-align: left;

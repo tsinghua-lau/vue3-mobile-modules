@@ -18,9 +18,10 @@ import AMapLoader from '@amap/amap-jsapi-loader';
 import { makeMark } from '@mlgj/hooks/czMap/index';
 import { selectLine, resetMap, hollowOut, getUserLocation, delMapObj } from '@mlgj/hooks/appointment/index';
 import { makeCarMark, selectDoubleLine, delMapCar } from '@mlgj/hooks/rescue/index';
-import { makebaseMark } from '@mlgj/hooks/base/index';
+import { makebaseMark, makeroadConditions } from '@mlgj/hooks/base/index';
 import { onBeforeMount, onMounted, ref, getCurrentInstance } from 'vue';
 const { proxy } = getCurrentInstance();
+let trafficLayerjs = null;
 // 地图容器
 var map = null;
 //Vue 挂载前
@@ -71,13 +72,15 @@ onBeforeMount(() => {
   //删除救援车辆
   proxy.$mybus.on('delMapCar', data => {
     delMapCar(map);
-  }); 
-
-  //------------------基础管理---------------------------- 
-  proxy.$mybus.on('makebaseMark', type => {
-    makebaseMark(type, map, proxy);
   });
 
+  //------------------基础管理----------------------------
+  proxy.$mybus.on('makebaseMark', (params) => {
+    makebaseMark(params, map, proxy);
+  });
+  proxy.$mybus.on('roadConditions', type => {
+    makeroadConditions(type, map, trafficLayerjs);
+  });
   //地图初始化
   initMap
     .then(map => {
@@ -155,6 +158,7 @@ const initMap = new Promise((resolve, reject) => {
             var trafficLayer = new AMap.TileLayer.Traffic({
               zIndex: 10,
             });
+            trafficLayerjs = trafficLayer;
             trafficLayer.setMap(map);
             //禁止旋转
             map.setStatus({

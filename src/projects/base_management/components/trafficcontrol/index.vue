@@ -87,12 +87,12 @@ const trfflocse = () => {
   vertical-align: bottom;
   div {
     margin-left: 22px;
-    font-size: 24px;
+    font-size: 20px;
     font-family: Source Han Sans CN, Source Han Sans CN-Regular;
-    font-weight: 400;
+    font-weight: 500;
     text-align: left;
     color: #333333;
-    line-height: 30px;
+    line-height: 28px;
   }
   .toll_centen_right_bottom {
     margin-top: 5px;

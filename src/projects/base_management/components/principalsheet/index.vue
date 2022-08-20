@@ -5,43 +5,43 @@
     </div>
     <van-grid :column-num="5" class="grid_value_p" :border="false">
       <van-grid-item @click="showMapmarker(1)">
-        <img class="serviocn_h" src="../../icon/princi_01.png" alt="" />
+        <img class="serviocn_h" :src="icon1" alt="" />
         <div class="serviocn_t">收费站</div>
       </van-grid-item>
       <van-grid-item @click="showMapmarker(2)">
-        <img class="serviocn_h" src="../../icon/princi_02.png" alt="" />
+        <img class="serviocn_h" :src="icon2" alt="" />
         <div class="serviocn_t">服务区</div>
       </van-grid-item>
       <van-grid-item @click="showMapmarker(3)">
-        <img class="serviocn_h" src="../../icon/princi_03.png" alt="" />
+        <img class="serviocn_h" :src="icon3" alt="" />
         <div class="serviocn_t">高速交警</div>
       </van-grid-item>
       <van-grid-item @click="showMapmarker(4)">
-        <img class="serviocn_h" src="../../icon/princi_04.png" alt="" />
+        <img class="serviocn_h" :src="icon4" alt="" />
         <div class="serviocn_t" style="font-size: 12px">事故快处点</div>
       </van-grid-item>
       <van-grid-item @click="showMapmarker(5)">
-        <img class="serviocn_h" src="../../icon/princi_05.png" alt="" />
+        <img class="serviocn_h" :src="icon5" alt="" />
         <div class="serviocn_t">汽渡</div>
       </van-grid-item>
       <van-grid-item @click="showMapmarker(6)">
-        <img class="serviocn_h" src="../../icon/princi_06.png" alt="" />
+        <img class="serviocn_h" :src="icon6" alt="" />
         <div class="serviocn_t">路况</div>
       </van-grid-item>
       <van-grid-item @click="showMapmarker(7)">
-        <img class="serviocn_h" src="../../icon/princi_07.png" alt="" />
+        <img class="serviocn_h" :src="icon7" alt="" />
         <div class="serviocn_t">管制</div>
       </van-grid-item>
       <van-grid-item @click="showMapmarker(8)">
-        <img class="serviocn_h" src="../../icon/princi_08.png" alt="" />
+        <img class="serviocn_h" :src="icon8" alt="" />
         <div class="serviocn_t">防疫点</div>
       </van-grid-item>
       <van-grid-item @click="showMapmarker(9)">
-        <img class="serviocn_h" src="../../icon/princi_09.png" alt="" />
+        <img class="serviocn_h" :src="icon9" alt="" />
         <div class="serviocn_t">高速视频</div>
       </van-grid-item>
       <van-grid-item @click="showMapmarker(10)">
-        <img class="serviocn_h" src="../../icon/princi_10.png" alt="" />
+        <img class="serviocn_h" :src="icon10" alt="" />
         <div class="serviocn_t">公路视频</div>
       </van-grid-item>
     </van-grid>
@@ -49,12 +49,106 @@
 </template>
 
 <script setup>
-import { defineComponent, getCurrentInstance } from 'vue';
+import { defineComponent, getCurrentInstance, ref } from 'vue';
 import router from '../../router.js';
 const emit = defineEmits(['closeAdd']);
 const { proxy } = getCurrentInstance();
+const icon1 = ref(require('../../icon/princi_01.png'));
+const icon2 = ref(require('../../icon/princi_02.png'));
+const icon3 = ref(require('../../icon/princi_03.png'));
+const icon4 = ref(require('../../icon/princi_04.png'));
+const icon5 = ref(require('../../icon/princi_05.png'));
+const icon6 = ref(require('../../icon/princi_06act.png'));
+const icon7 = ref(require('../../icon/princi_07.png'));
+const icon8 = ref(require('../../icon/princi_08.png'));
+const icon9 = ref(require('../../icon/princi_09.png'));
+const icon10 = ref(require('../../icon/princi_10.png'));
 const showMapmarker = type => {
-  proxy.$mybus.emit('makebaseMark', type);
+  const params = {type:type};
+  if (type == 1) {
+    if (icon1.value == require('../../icon/princi_01act.png')) {
+      icon1.value = require('../../icon/princi_01.png');
+      params.flag = false;
+    } else {
+      icon1.value = require('../../icon/princi_01act.png');
+      params.flag = true;
+    }
+  } else if (type == 2) {
+    if (icon2.value == require('../../icon/princi_02act.png')) {
+      params.flag = false;
+      icon2.value = require('../../icon/princi_02.png');
+    } else {
+      params.flag = true;
+      icon2.value = require('../../icon/princi_02act.png');
+    }
+  } else if (type == 3) {
+    if (icon3.value == require('../../icon/princi_03act.png')) {
+      params.flag = false;
+      icon3.value = require('../../icon/princi_03.png');
+    } else {
+      params.flag = true;
+      icon3.value = require('../../icon/princi_03act.png');
+    }
+  } else if (type == 4) {
+    if (icon4.value == require('../../icon/princi_04act.png')) {
+      params.flag = false;
+      icon4.value = require('../../icon/princi_04.png');
+    } else {
+      params.flag = true;
+      icon4.value = require('../../icon/princi_04act.png');
+    }
+  } else if (type == 5) {
+    if (icon5.value == require('../../icon/princi_05act.png')) {
+      params.flag = false;
+      icon5.value = require('../../icon/princi_05.png');
+    } else {
+      params.flag = true;
+      icon5.value = require('../../icon/princi_05act.png');
+    }
+  } else if (type == 6) {
+    if (icon6.value == require('../../icon/princi_06act.png')) {
+      icon6.value = require('../../icon/princi_06.png');
+      // params.flag = false;
+      proxy.$mybus.emit('roadConditions', false);
+    } else {
+      // params.flag = true;
+      icon6.value = require('../../icon/princi_06act.png');
+      proxy.$mybus.emit('roadConditions', true);
+    }
+  } else if (type == 7) {
+    if (icon7.value == require('../../icon/princi_07act.png')) {
+      params.flag = false;
+      icon7.value = require('../../icon/princi_07.png');
+    } else {
+      params.flag = true;
+      icon7.value = require('../../icon/princi_07act.png');
+    }
+  } else if (type == 8) {
+    if (icon8.value == require('../../icon/princi_08act.png')) {
+      params.flag = false;
+      icon8.value = require('../../icon/princi_08.png');
+    } else {
+      params.flag = true;
+      icon8.value = require('../../icon/princi_08act.png');
+    }
+  } else if (type == 9) {
+    if (icon9.value == require('../../icon/princi_09act.png')) {
+      params.flag = false;
+      icon9.value = require('../../icon/princi_09.png');
+    } else {
+      params.flag = true;
+      icon9.value = require('../../icon/princi_09act.png');
+    }
+  } else if (type == 10) {
+    if (icon10.value == require('../../icon/princi_10act.png')) {
+      params.flag = false;
+      icon10.value = require('../../icon/princi_10.png');
+    } else {
+      params.flag = true;
+      icon10.value = require('../../icon/princi_10act.png');
+    }
+  }
+  proxy.$mybus.emit('makebaseMark', params);
 };
 const showSearch = () => {
   emit('openSear', true);
