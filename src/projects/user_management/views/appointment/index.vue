@@ -1,73 +1,126 @@
 <template>
   <div class="box">
     <div class="header">
-      <div class="item" :class="activeName == 'a' ? 'active' : ''" @click="changeTab('a')">未开始</div>
-      <div class="item" :class="activeName == 'b' ? 'active' : ''" @click="changeTab('b')">生效中</div>
-      <div class="item" :class="activeName == 'c' ? 'active' : ''" @click="changeTab('c')">已过期</div>
+      <van-tabs v-model:active="state.tabActiveIndex">
+        <van-tab title="生效中"></van-tab>
+        <van-tab title="已过期/失效"></van-tab>
+      </van-tabs>
     </div>
 
-    <div class="content-not-start" v-show="activeName == 'a'">
-       <empty v-if="!state.cardNotStart.length" />
-    </div>
-    <div class="content-effect-ing" v-show="activeName == 'b'">
-       <empty v-if="!state.cardEffectIng.length" />
-      <div class="item" v-for="item in state.cardEffectIng">
+    <div class="content-effect-ing">
+      <empty v-if="!state.cardList[state.tabActiveIndex].length" />
+      <div class="item" v-for="item in state.cardList[state.tabActiveIndex]">
         <div class="title">{{ item.name }}</div>
         <div class="start-time">
           <div class="key">开始时间</div>
-          <div class="value">{{ $getTime(new Date()) }}</div>
+          <div class="value">{{ item.startTime }}</div>
         </div>
         <div class="end-time">
           <div class="key">结束时间</div>
-          <div class="value">{{ $getTime(new Date()) }}</div>
+          <div class="value">{{ item.endTime }}</div>
         </div>
-        <div class="handle">
-          <div class="cancle btn">取消关注</div>
-          <div class="pause btn">暂停推送</div>
+        <!-- 收费站、汽渡按钮 -->
+        <div class="handle" v-if="(item.type == 1 || item.type == 2) && state.tabActiveIndex!==1">
+         <div class="btn pause"  @click="btnCancel(item)">取消关注</div>
+          <div class="btn" @click="btnSend(item)" :class="item.state == 1 ? 'cancle' : 'pause'">{{ item.state == 1 ? '暂停推送' : '推送' }}</div>
+          <!-- <div class="btn" :class="item.state == 2? 'pause':''">{{item.state == 2? '暂停推送':'推送'}}</div> -->
+        </div>
+
+         <!-- 收费站按钮 -->
+        <div class="handle" v-if="item.type == 3 && state.tabActiveIndex!==1">
+          <div class="btn" @click="btnCancel(item)">取消预约</div>
+          <div class="btn" @click="btnSend(item)" :class="item.state == 1 ? 'cancle' : 'pause'">{{ item.state == 1 ? '暂停推送' : '推送' }}</div>
+
         </div>
       </div>
     </div>
-    <div class="content-past-due" v-show="activeName == 'c'"></div>
   </div>
 </template>
 <script setup>
-import { ref, reactive } from 'vue';
-import { Toast } from 'vant';
-import empty from '@/components/Empty.vue'
+import { ref, reactive, onMounted } from 'vue';
+import { Toast, Tab, Tabs } from 'vant';
+import empty from '@/components/Empty.vue';
+import { subscribeList, pauseInfo,cancelBtn } from '../../api/login/index';
 const activeName = ref('a');
-Toast(activeName.value);
 const changeTab = name => {
   activeName.value = name;
 };
 let state = reactive({
-  cardNotStart: [
-    
-  ],
-  cardEffectIng: [
-    {
-      name: '收费站名称',
-    },
-    {
-      name: '收费站名称',
-    },
-    {
-      name: '收费站名称',
-    },
-  ],
+  tabActiveIndex: '0',
+  cardList: [[], []],
 });
-// const getTime = (originVal) => {
-//   const dt = new Date(originVal);
 
-//   const y = dt.getFullYear();
-//   const m = (dt.getMonth() + 1 + '').padStart(2, '0');
-//   const d = (dt.getDate() + '').padStart(2, '0');
+onMounted(() => {
+  getList(2); //已经生效
+  getList(3); //失效
+});
 
-//   const hh = (dt.getHours() + '').padStart(2, '0');
-//   const mm = (dt.getMinutes() + '').padStart(2, '0');
-//   const ss = (dt.getSeconds() + '').padStart(2, '0');
+//取消关注
+const btnCancel = (item)=>{
+cancelBtn({id:item.id,type:Number(item.type)}).then(res=>{
+  if(res && res.code == 200){
+      getList(2); //已经生效
+      getList(3); //已经生效
+    Toast('取消关注成功')
+  }else{
+    Toast('取消关注失败')
 
-//   return `${y}-${m}-${d} ${hh}:${mm}:${ss}`;
-// };
+  }
+})
+}
+
+//获取列表
+const getList = type => {
+  if(type == 2){
+    state.cardList[0] = [];
+  }else{
+    state.cardList[1] = [];
+  }
+  subscribeList({
+    account: '15850501445', //15651691805
+    type: type,
+  }).then(res => {
+    if (res && res.data) {
+      res.data.forEach(item => {
+        state.cardList[type == 2 ? 0 : 1].push({
+          name: item.name,
+          startTime: item.startTime,
+          endTime: item.endTime,
+          state: item.state,
+          id: item.id,
+          type: item.type,
+        });
+      });
+    }
+
+    console.log(state.cardList);
+  });
+};
+//按钮请求--取消推送、推送
+const btnSend = item => {
+  let ps = {
+    id: item.id,
+    type: item.type,
+    state: item.state == 1 ? 2 : 1,
+  };
+  pauseInfo(ps).then(res => {
+    console.log(res);
+    if (res && res.code == 200) {
+      let obj = state.cardList[0].find(p => p.id == item.id);
+      if (obj) {
+        obj.state = obj.state == 1 ? 2 : 1;
+      }
+      Toast('操作成功');
+    } else {
+      Toast('操作失败');
+    } 
+    // setTimeout(() => {
+    //   state.cardList[0] = [];
+    //   getList(2); //已经生效
+    //   getList(3); //失效
+    // }, 500);
+  });
+};
 </script>
 <style lang="less" scopde>
 html,
@@ -110,9 +163,8 @@ body {
       font-size: 15px;
     }
   }
-  .content-not-start,
-  .content-effect-ing,
-  .content-past-due {
+
+  .content-effect-ing {
     margin-top: 10px;
     width: 100%;
     overflow: auto;
@@ -161,7 +213,8 @@ body {
       .handle {
         display: flex;
         justify-content: right;
-        .btn {
+        .btn,
+        .btn-blue {
           margin: 15px;
           margin-top: 20px;
           margin-left: 5px;
@@ -178,6 +231,11 @@ body {
           border-bottom-right-radius: 20px;
           color: #4287fe;
           font-weight: 500;
+          font-family: 'SourceHanSansCN';
+        }
+        .btn-blue {
+          background: #4287fe;
+          color: #fff;
         }
       }
     }

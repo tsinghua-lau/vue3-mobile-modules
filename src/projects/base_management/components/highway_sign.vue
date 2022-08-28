@@ -3,11 +3,11 @@
     <div class="toll_centen_top">
       <span class="toll_centen_top_left">
         <span class="toll_centen_top_left_left"
-              v-show="props.msg == '苏高速'">{{ props.msg }}</span>
+              v-show="props.msg.roadType == 1">苏高速</span>
         <span class="toll_centen_top_left_left2"
-              v-show="props.msg == '国家高速'">{{ props.msg }}</span>
-        <span class="toll_centen_top_left_centent">{{ this.ld }}</span>
-        <span class="toll_centen_top_left_right">{{ this.ldt }}</span>
+              v-show="props.msg.roadType == 0">国家高速</span>
+        <span class="toll_centen_top_left_centent">{{ props.msg.roadNum }}</span>
+        <span class="toll_centen_top_left_right">{{ props.msg.roadName }}</span>
       </span>
       <span></span>
     </div>
@@ -17,10 +17,10 @@
 import { ref, onMounted } from 'vue';
 import { stringifyQuery } from 'vue-router';
 // let gs =ref('苏高速');
-let ld = ref('G42');
-let ldt = ref('沪蓉高速');
+// let ld = ref('G42');
+// let ldt = ref('沪蓉高速');
 let props = defineProps({
-  msg: { type: String },
+  msg: { type: Object },
 });
 onMounted(() => {});
 </script>
@@ -31,7 +31,7 @@ onMounted(() => {});
   .toll_centen_top_left {
     font-size: 12px;
     width: 58px;
-    height: 55px;
+    height: 60px;
     display: flex;
     flex-direction: column;
     span {

@@ -2,16 +2,15 @@
     <!-- 公告详情 -->
     <div class="details-wrap">
         <div class="header-box">
-            <div class="header-title">{{ detailsInfo.title }}</div>
+            <div class="header-title">{{ detailsInfo.title || ' ' }}</div>
             <div class="header-info">
-                <div class="header-info-date">{{ detailsInfo.date }}</div>
-                <div class="header-info-view">浏览量：{{ detailsInfo.view }}</div>
+                <div class="header-info-date">{{ detailsInfo.issueTime || ' ' }}</div>
+                <div class="header-info-view" v-show="detailsInfo.views">浏览量：{{ detailsInfo.views || '' }}</div>
             </div>
         </div>
 
-        <div class="content-box">
-            <div class="row" v-for="(item, index) in detailsInfo.text" :key="'details'+index">{{ item }}</div>
-        </div>
+        <div class="content-box" v-html="detailsInfo.issueContent"></div>
+        <empty v-if="!detailsInfo.issueContent && !loading" text="暂无公告详情"></empty>
     </div>
 </template>
 
@@ -24,28 +23,55 @@
         toRefs,
     } from 'vue';
     import {useRoute} from "vue-router";
+    import {
+        getNoticeInfo,
+    } from '../api/index'
+    import {load} from "../components/loading/loading";
+    import empty from '@/components/Empty.vue';
 
     export default defineComponent({
         name: 'index',
         props: {},
-        components: {},
+        components: {
+            empty
+        },
         setup(props, ctx) {
             const data = reactive({
-                detailsInfo: {
-                    title: '尖于丁伙枢纽部分匝道扩建施工期间限车辆通知公告',
-                    view: '6000',
-                    date: '2022-08-10',
-                    text: [
-                        '凡是用来宣布有关国家的政治、经济、军事、科技、教育人事、外交等方面需要告知全民的重要事项的，都属此类公告。常见的有国家重要领导岗位的变动，领导人的出访或其他重大活动，重要科技成果的公布，重要军事行动等等。如中国人大常务委员会关于确认中国人大代表资格的公告，新华社受权宣布中国将进行向太平洋发射运载火箭试验的公告，都属此类公告。',
-                        '凡是用来宣布有关国家的政治、经济、军事、科技、教育人事、外交等方面需要告知全民的重要事项的，都属此类公告。常见的有国家重要领导岗位的变动，领导人的出访或其他重大活动，重要科技成果的公布，重要军事行动等等。如中国人大常务委员会关于确认中国人大代表资格的公告，新华社受权宣布中国将进行向太平洋发射运载火箭试验的公告，都属此类公告。 ',
-                        '凡是用来宣布有关国家的政治、经济、军事、科技、教育人事、外交等方面需要告知全民的重要事项的，都属此类公告。常见的有国家重要领导岗位的变动，领导人的出访或其他重大活动，重要科技成果的公布，重要军事行动等等。如中国人大常务委员会关于确认中国人大代表资格的公告，新华社受权宣布中国将进行向太平洋发射运载火箭试验的公告，都属此类公告。 ',
-                    ]
-                }
+                detailsInfo: {},
+                loading: false,
             });
             const $route = useRoute();
 
+            /**
+             * 获取公告详情
+             * @param id
+             */
+            function getData(id) {
+                if (!id) {
+                    return
+                }
+
+                load.show('拼命加载中...');
+                data.loading = true;
+
+                getNoticeInfo(
+                    {
+                        id: id,
+                    }
+                ).then((res) => {
+                    if (res && res.code === 200) {
+                        let info = res.data || {};
+                        data.detailsInfo = info;
+                    }
+                    console.log("getInfo==>", res)
+                }).finally(() => {
+                    load.hide()
+                    data.loading = false;
+                })
+            }
+
             onMounted(() => {
-                console.log($route.params);
+                getData($route.params.id);
             });
 
             return {
@@ -93,13 +119,10 @@
 
         > .content-box {
             margin-top: 5px;
-
-            .row {
-                color: #333333;
-                font-size: 13.19px;
-                line-height: 21px;
-                text-align: justify;
-            }
+            color: #333333;
+            font-size: 13.19px;
+            line-height: 21px;
+            text-align: justify;
 
         }
     }

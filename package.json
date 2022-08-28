@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "dev:mlgj": "cross-env PROJECT_NAME=app_mlgj vue-cli-service serve",
-
     "dev:user": "cross-env PROJECT_NAME=user_management vue-cli-service serve",
     "dev:notice": "cross-env PROJECT_NAME=notice_management vue-cli-service serve",
     "dev:bill": "cross-env PROJECT_NAME=bill_management vue-cli-service serve",
@@ -15,7 +14,6 @@
     "build:bill": "cross-env PROJECT_NAME=bill_management vue-cli-service build",
     "build:rescue": "cross-env PROJECT_NAME=rescue_management vue-cli-service build",
     "build:base": "cross-env PROJECT_NAME=base_management vue-cli-service build",
-
     "build:mlgj": "cross-env PROJECT_NAME=app_mlgj vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -23,11 +21,13 @@
     "@amap/amap-jsapi-loader": "^1.0.1",
     "axios": "^0.27.2",
     "echarts": "^5.3.3",
+    "flv.js": "^1.6.2",
     "mitt": "^3.0.0",
     "vant": "^3.5.4",
     "vue": "^3.2.37",
     "vue-router": "^4.0.0-0",
-    "vuex": "^4.0.0-0"
+    "vuex": "^4.0.0-0",
+    "weixin-js-sdk": "^1.6.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-router": "~4.5.14",

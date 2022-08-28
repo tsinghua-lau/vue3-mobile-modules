@@ -1,37 +1,41 @@
 <template>
-  <div>
+  <div class="isod">
     <div class="title_top_t">
       <img class="tollimg" src="./../../icon/trafficcontrol_base.png" />
       <span class="toll_gate_txt">交通管制</span>
       <img src="./../../icon/close.png" @click="trfflocse" class="closeButton" />
     </div>
     <div>
-      <highwaySign msg="国家高速" />
+      <highwaySign :msg="stontt" />
       <span class="toll_centen_right_t">
-        <div>连云港方向</div>
+        <div>{{ stontt.direction }}方向</div>
         <div class="toll_centen_right_bottom">
-          <span class="toll_centen_right_icon" v-show="type == 1">部分车型</span>
-          <span class="toll_centen_right_icon3" v-show="type == 2">全部车型</span>
-          <span class="toll_centen_right_icon1">收费站</span>
+          <span class="toll_centen_right_icon" v-if="stontt.state == 0">部分车型</span>
+          <span class="toll_centen_right_icon3" v-else-if="stontt.state == 1">全部车型</span>
+          <span class="toll_centen_right_icon1" v-if="stontt.controlType == 0">道口</span>
+          <span class="toll_centen_right_icon1" v-else-if="stontt.controlType == 1">收费站</span>
+          <span class="toll_centen_right_icon1" v-else-if="stontt.controlType == 2">服务区</span>
+          <span class="toll_centen_right_icon1" v-else-if="stontt.controlType == 3">枢纽</span>
+          <span class="toll_centen_right_icon1" v-else-if="stontt.controlType == 4">主线</span>
         </div>
       </span>
     </div>
     <div class="traffTxt">
-      <p>2022年7月12日18时﹐G25长深高速淮安段由于临时交通管制﹐洪泽至铁山寺双向入口禁止危险化学品运输车辆通行。</p>
+      <p>{{ stontt.describe }}</p>
     </div>
     <div class="str_endTime">
       <div>
         <span><img class="iconbig" src="../../icon/strtime.png" /></span>
         <span class="str_endTime_box">
           <div class="timetext">开始时间</div>
-          <div class="timenum">07-12 18:00</div>
+          <div class="timenum">{{ timeedit(stontt.openTime) }}</div>
         </span>
       </div>
       <div>
         <span><img class="iconbig" src="../../icon/endtime.png" /></span>
         <span class="str_endTime_box">
           <div class="timetext">预计结束时间</div>
-          <div class="timenum">07-14 18:00</div>
+          <div class="timenum">{{ timeedit(stontt.closeTime) }}</div>
         </span>
       </div>
     </div>
@@ -40,12 +44,39 @@
 <script setup>
 /**交通管制页面 */
 import highwaySign from '../highway_sign.vue';
-import { ref } from 'vue';
-let type = ref('2');
-const emit = defineEmits(['closeAdd']);
+import { onMounted, ref, getCurrentInstance, reactive } from 'vue';
+const { proxy } = getCurrentInstance();
+var stontt = reactive({
+  roadNum: 'G42',
+  roadName: '京沪高速',
+  roadType: '0',
+  closeTime: '',
+  controlType: '',
+  describe: '',
+  direction: '',
+  openTime: '',
+  state: '',
+});
 const trfflocse = () => {
-  emit('closePubopsertraff', false);
+  proxy.$mybus.emit('closePubopsertraff', false);
 };
+const timeedit = time => {
+  return time.substring(5, time.length - 1);
+};
+onMounted(() => {
+  proxy.$mybus.on('trffStionclickevent', data => {
+    console.log(data);
+    stontt.roadNum = data.roadNum;
+    stontt.roadName = data.roadName;
+    stontt.roadType = data.roadType;
+    stontt.closeTime = data.closeTime;
+    stontt.controlType = data.controlType;
+    stontt.describe = data.describe;
+    stontt.direction = data.direction;
+    stontt.openTime = data.openTime;
+    stontt.state = data.state;
+  });
+});
 </script>
 <style lang="less" scoped>
 @font-face {
@@ -53,6 +84,10 @@ const trfflocse = () => {
   src: url('../../../../assets/fonts/SourceHanSansCN-Bold.otf');
   font-style: normal;
 }
+.isod {
+  margin-bottom: 100px;
+}
+
 .title_top_t {
   box-sizing: border-box;
   position: relative;
@@ -99,7 +134,7 @@ const trfflocse = () => {
     .toll_centen_right_icon {
       display: inline-block;
       width: 70px;
-      height:25px;
+      height: 25px;
       background: #35c5a3;
       border-radius: 3px;
       color: #fff;

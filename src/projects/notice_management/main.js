@@ -8,6 +8,7 @@ import Vant from 'vant';
 import mitt from "mitt";
 import 'amfe-flexible';
 // import 'vant/lib/index.css';
+import '../../styles/common.less'
 //按需引入
 import 'vant/lib/button/style';
 import 'vant/lib/popup/style';

@@ -239,7 +239,6 @@ export const delMapObj = map => {
   for (let i = 0; i < appiontment.allLines.length; i++) {
     try {
      console.log(appiontment.allLines[i]);
-     debugger
       appiontment.allLines[i].close();
       appiontment.allLines[i].destroy();
     } catch (error) {

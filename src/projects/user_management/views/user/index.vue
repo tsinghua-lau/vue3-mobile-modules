@@ -2,12 +2,12 @@
   <div class="box">
     <div class="bg">
       <div class="portrait">
-        <img src="../../images/user.png" alt="" />
+        <img :src="userLogo" alt="" />
       </div>
       <div class="name" @click="goUrl('information')">
-        茉莉高速用户
-        <span class="man"> <img src="../../images/man.png" alt="" /></span>
-        <!-- <span class="woman"><img src="../../images/woman.png" alt=""></span> -->
+        {{ userName }}
+        <span class="man" v-show="gender == '男性'"> <img src="../../images/man.png" alt="" /></span>
+        <span class="woman" v-show="gender == '女性'"><img src="../../images/woman.png" alt="" /></span>
       </div>
     </div>
     <div class="user-info">
@@ -29,7 +29,7 @@
           <img src="../../images/right.png" alt="" />
         </div>
       </div>
-      <div class="item">
+      <div class="item" @click="goUrl('bill')">
         <div class="logo">
           <img src="../../images/cost.png" alt="" />
         </div>
@@ -69,7 +69,7 @@
         </div>
       </div>
 
-      <div class="item">
+      <div class="item" @click="goUrl('notice')">
         <div class="logo">
           <img src="../../images/notice.png" alt="" />
         </div>
@@ -79,21 +79,70 @@
         </div>
       </div>
 
-      <div class="exit">退出登录</div>
+      <div class="exit" @click="logOut">退出登录</div>
     </div>
   </div>
 </template>
 
 <script setup>
 import { useRoute, useRouter } from 'vue-router';
-import { getCurrentInstance } from 'vue';
+import { getCurrentInstance, onMounted, ref } from 'vue';
+import { loginOut, getLocalUserInfo } from '../../api/login/index';
+import { Toast } from 'vant';
 
 const { proxy, ctx } = getCurrentInstance();
 const route = useRoute();
 const router = useRouter();
+
+const userLogo = ref('');
+const phoneNum = ref('');
+const userName = ref('');
+const gender = ref('男性');
+
+onMounted(() => {
+  //获取用户信息
+  getLocalUserInfo({ mobile: window.g.mobile }).then(res => {
+    debugger;
+    console.log(res);
+    if (res && res.code == 200) {
+      gender.value = res.data.sex == '0' ? '男性' : '女性';
+      userName.value = res.data.nickName;
+      userLogo.value = res.data.hpPath||window.g.headimgurl;
+    } else {
+      userLogo.value = window.g.headimgurl;
+      gender.value = window.g.gender;
+      userName.value = window.g.nickname;
+      // phoneNum.value = route.query.phone;
+      setTimeout(() => {
+      Toast('取用微信接口用户信息');
+
+      }, 1500);
+    }
+  });
+  proxy.$mybus.on('updataUser', data => {
+    if (data.nickname) {
+      userName.value = data.nickname;
+    }
+    if (data.gender) {
+      gender.value = data.gender;
+    }
+  });
+});
+
 const goUrl = url => {
   router.push({
     path: '/' + url,
+  });
+};
+
+const logOut = () => {
+  //调用接口account:phoneNum.value
+  loginOut({account:window.g.mobile}).then(res => {
+    if (res.code == 200) {
+      router.push({
+        path: '/',
+      });
+    }
   });
 };
 </script>
@@ -127,6 +176,7 @@ const goUrl = url => {
       img {
         width: 100%;
         height: 100%;
+        border-radius: 50%;
       }
     }
 
@@ -138,7 +188,8 @@ const goUrl = url => {
       top: 56px;
       font-weight: 600;
 
-      .man {
+      .man,
+      .woman {
         display: inline-block;
         width: 13px;
         height: 13px;
@@ -178,7 +229,7 @@ const goUrl = url => {
 
       .logo {
         float: left;
-        width: 16px;
+        width: 18px;
         height: 18px;
 
         img {

@@ -7,12 +7,12 @@
         <img :src="props.active ? icon.earth_active : icon.earth_inactive" />
       </template>
     </van-tabbar-item>
-    <van-tabbar-item>
+    <!-- <van-tabbar-item>
       <span>路况预约</span>
       <template #icon="props">
         <img :src="props.active ? icon.time_active : icon.time_inactive" />
       </template>
-    </van-tabbar-item>
+    </van-tabbar-item> -->
     <van-tabbar-item icon="setting-o">
       <span>救援服务</span>
       <template #icon="props">
@@ -55,7 +55,7 @@ const icon = {
   around_inactive: require('../../images/around.png'),
 };
 const onChange = index => {
-  const path = ['/base', '/appointment', '/rescue', '/route', 'around'];
+  const path = ['/base', '/rescue', '/route', 'around'];
 
   // if(index!==0){
   //   Toast('暂未集成')
@@ -86,12 +86,9 @@ const onChange = index => {
     proxy.$mybus.emit('delMapObj', '');
   }
 
-  ///加载人员所在定位以及附近路线
+  ///加载人员所在定位以及附近路线，获取救援状态
   if (index == 2) {
-    setTimeout(() => {
-      // proxy.$mybus.emit('selectDoubleLine', '');
-      // proxy.$mybus.emit('makenowMark', '');
-    }, 500);
+    // proxy.$mybus.emit('goToRescuePage', '');
   } else {
     proxy.$mybus.emit('delMapCar', '');
   }

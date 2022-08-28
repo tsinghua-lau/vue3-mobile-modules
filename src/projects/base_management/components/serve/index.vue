@@ -1,126 +1,144 @@
-.<template>
+<template>
   <div style="height: 100%">
     <div class="title_top">
-      <img class="tollimg"
-           src="./../../icon/serveicon.png" />
+      <img class="tollimg" src="./../../icon/serveicon.png" />
       <span class="toll_gate_txt">服务区</span>
-      <img src="./../../icon/close.png"
-           @click="closePubopser"
-           class="closeButton" />
+      <img src="./../../icon/close.png" @click="closePubopser" class="closeButton" />
     </div>
-    <van-row class="tabclse">
-      <van-col span="12"
-               @click="tabClserac(1)">
-        <div class="active">由扬州往新沂</div>
-        <div class="tabclse_bottom"></div>
-      </van-col>
-      <van-col span="12"
-               @click="tabClserac(2)">
-        <div class="{{act}}">由新沂往扬州</div>
-        <div class="{{actv}}"></div>
-      </van-col>
-    </van-row>
-    <div class="toll_centen">
-      <div>
-        <highwaySign msg="苏高速" />
-        <span class="toll_centen_right">
-          <div>平潮北服务区</div>
-          <div class="toll_centen_right_bottom">
-            <span class="toll_centen_right_icon1"
-                  v-if="status == 1">开</span>
-            <span class="toll_centen_right_icon2"
-                  v-else-if="status == 2">开</span>
-            <span class="toll_centen_right_icon3"
-                  v-else-if="status == 3">关</span>
-            <span class="toll_centen_right_cl9_1"
-                  v-if="cl9 == 1">疫情查验</span>
-            <span class="toll_centen_right_cl9_2"
-                  v-else-if="cl9 == 2">疫情免检</span>
+    <van-tabs class="tabclse" v-model:active="active">
+      <van-tab :title="servestontt.datalist[0].direction" :id="servestontt.datalist[0].directionId">
+        <div class="toll_centen">
+          <div>
+            <highwaySign :msg="servestontt.stontt" />
+            <span class="toll_centen_right">
+              <div>{{ servestontt.name }}</div>
+              <div class="toll_centen_right_bottom">
+                <span class="toll_centen_right_icon1" v-if="servestontt.datalist[0].state == 0">开</span>
+                <span class="toll_centen_right_icon3" v-else-if="servestontt.datalist[0].state == 1">关</span>
+                <span class="toll_centen_right_cl9_1" v-if="servestontt.datalist[0].examineType == 0">疫情查验</span>
+                <span class="toll_centen_right_cl9_2" v-else-if="servestontt.datalist[0].examineType == 1">疫情免检</span>
+              </div>
+            </span>
+            <span class="toll_centen_r">
+              <div @click="serveVideoshwo(servestontt.datalist[1].videoId)"><img class="video_base" :videoId="servestontt.datalist[0].videoId" src="../../icon/video.base.png" /></div>
+              <div class="video_base_text">{{ servestontt.datalist[0].videoName }}</div>
+            </span>
           </div>
-        </span>
-        <span class="toll_centen_r">
-          <div><img class="video_base"
-                 src="../../icon/video.base.png" /></div>
-          <div class="video_base_text">广场</div>
-        </span>
-      </div>
 
-      <van-cell-group class="toll_centen_phone">
-        <div class="toll_centen_phone_l">联系电话</div>
-        <div class="toll_centen_phone_r">13939393939</div>
-      </van-cell-group>
+          <van-cell-group class="toll_centen_phone">
+            <div class="toll_centen_phone_l">联系电话</div>
+            <div class="toll_centen_phone_r">{{ servestontt.datalist[0].contact }}</div>
+          </van-cell-group>
 
-      <p class="serve_count">服务内容</p>
-      <van-grid :column-num="5"
-                class="grid_value"
-                :border="false">
-        <van-grid-item>
-          <img class="serviocn_h"
-               src="../../icon/serve01.png"
-               alt="" />
-          <div class="serviocn_t">餐饮</div>
-        </van-grid-item>
-        <van-grid-item>
-          <img class="serviocn_h"
-               src="../../icon/serve02.png"
-               alt="" />
-          <div class="serviocn_t">24小时超市</div>
-        </van-grid-item>
-        <van-grid-item>
-          <img class="serviocn_h"
-               src="../../icon/serve03.png"
-               alt="" />
-          <div class="serviocn_t">充电桩</div>
-        </van-grid-item>
-        <van-grid-item>
-          <img class="serviocn_h"
-               src="../../icon/serve04.png"
-               alt="" />
-          <div class="serviocn_t">停车位</div>
-        </van-grid-item>
-        <van-grid-item>
-          <img class="serviocn_h"
-               src="../../icon/serve05.png"
-               alt="" />
-          <div class="serviocn_t">92汽油</div>
-        </van-grid-item>
-        <van-grid-item>
-          <img class="serviocn_h"
-               src="../../icon/serve06.png"
-               alt="" />
-          <div class="serviocn_t">98汽油</div>
-        </van-grid-item>
-        <van-grid-item>
-          <img class="serviocn_h"
-               src="../../icon/serve07.png"
-               alt="" />
-          <div class="serviocn_t">0号柴油</div>
-        </van-grid-item>
-        <van-grid-item>
-          <img class="serviocn_h"
-               src="../../icon/serve08.png"
-               alt="" />
-          <div class="serviocn_t">母婴室</div>
-        </van-grid-item>
-      </van-grid>
+          <p class="serve_count">服务内容</p>
+          <van-grid :column-num="5" class="grid_value" :border="false">
+            <van-grid-item v-for="item in servestontt.datalist[0].serviceContent" :key="item">
+              <img class="serviocn_h" :src="iconreturn(item)" alt="" />
+              <div class="serviocn_t">{{ item }}</div>
+            </van-grid-item>
+          </van-grid>
+          <div>
+            <span class="postion_l"><img class="postion_l_icon" src="../../icon/position.png" />20.55KM</span>
+            <van-button class="postion_r" color="#2d7ce7" round size="small">路线</van-button>
+          </div>
+        </div>
+      </van-tab>
+      <van-tab :title="servestontt.datalist[1].direction" :id="servestontt.datalist[1].directionId">
+        <div class="toll_centen">
+          <div>
+            <highwaySign :msg="servestontt.stontt" />
+            <span class="toll_centen_right">
+              <div>{{ servestontt.name }}</div>
+              <div class="toll_centen_right_bottom">
+                <span class="toll_centen_right_icon1" v-if="servestontt.datalist[1].state == 0">开</span>
+                <span class="toll_centen_right_icon3" v-else-if="servestontt.datalist[1].state == 1">关</span>
+                <span class="toll_centen_right_cl9_1" v-if="servestontt.datalist[1].examineType == 0">疫情查验</span>
+                <span class="toll_centen_right_cl9_2" v-else-if="servestontt.datalist[1].examineType == 1">疫情免检</span>
+              </div>
+            </span>
+            <span class="toll_centen_r">
+              <div @click="serveVideoshwo(servestontt.datalist[1].videoId)"><img class="video_base" :videoId="servestontt.datalist[1].videoId" src="../../icon/video.base.png" /></div>
+              <div class="video_base_text">{{ servestontt.datalist[1].videoName }}</div>
+            </span>
+          </div>
 
-      <div>
-        <span class="postion_l"><img class="postion_l_icon"
-               src="../../icon/position.png" />20.55KM</span>
-        <van-button class="postion_r"
-                    color="#2d7ce7"
-                    round
-                    size="small">路线</van-button>
-      </div>
-    </div>
+          <van-cell-group class="toll_centen_phone">
+            <div class="toll_centen_phone_l">联系电话</div>
+            <div class="toll_centen_phone_r">{{ servestontt.datalist[1].contact }}</div>
+          </van-cell-group>
+
+          <p class="serve_count">服务内容</p>
+          <van-grid :column-num="5" class="grid_value" :border="false">
+            <van-grid-item v-for="item in servestontt.datalist[1].serviceContent" :key="item">
+              <img class="serviocn_h" :src="iconreturn(item)" alt="" />
+              <div class="serviocn_t">{{ item }}</div>
+            </van-grid-item>
+          </van-grid>
+          <div>
+            <span class="postion_l"><img class="postion_l_icon" src="../../icon/position.png" />20.55KM</span>
+            <van-button class="postion_r" color="#2d7ce7" round size="small">路线</van-button>
+          </div>
+        </div>
+      </van-tab>
+    </van-tabs>
   </div>
 </template>
 <script setup>
 import highwaySign from './../highway_sign.vue';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, getCurrentInstance, reactive } from 'vue';
+const { proxy } = getCurrentInstance();
 let act = ref('active');
 let actv = ref('tabclse_bottom');
 const emit = defineEmits(['closeAdd']);
+var servestontt = reactive({
+  name: '',
+  stontt: {
+    roadNum: '',
+    roadName: '',
+    roadType: '',
+  },
+  datalist: [
+    {
+      contact: '',
+      direction: '',
+      directionId: '',
+      examineType: 0,
+      serviceContent: [],
+      state: 0,
+      videoId: '',
+      videoName: '',
+    },
+    {
+      contact: '',
+      direction: '',
+      directionId: '',
+      examineType: 0,
+      serviceContent: [],
+      state: 0,
+      videoId: '',
+      videoName: '',
+    },
+  ],
+});
+const iconreturn = txt => {
+  if (txt == '餐饮服务') {
+    return require('../../icon/serve01.png');
+  } else if (txt == '24小时超市') {
+    return require('../../icon/serve02.png');
+  } else if (txt == '充电桩') {
+    return require('../../icon/serve03.png');
+  } else if (txt == '停车位') {
+    return require('../../icon/serve04.png');
+  } else if (txt == '92汽油') {
+    return require('../../icon/serve05.png');
+  } else if (txt == '98汽油') {
+    return require('../../icon/serve06.png');
+  } else if (txt == '0号柴油') {
+    return require('../../icon/serve07.png');
+  } else if (txt == '母婴室') {
+    return require('../../icon/serve03.png');
+  }
+};
 const tabClserac = type => {
   //   if (type == 1) {
   //     act = ref('active');
@@ -129,11 +147,22 @@ const tabClserac = type => {
   //   }
 };
 const closePubopser = () => {
-  emit('closePubopser', false);
+  proxy.$mybus.emit('closePubopser', false);
+  localStorage.setItem('serveId', '');
 };
-onMounted(() => {});
-let status = ref('3');
-let cl9 = ref('2');
+const serveVideoshwo = id => {
+  // 获取数据 后出视频弹框
+  proxy.$mybus.emit('serveVideoshwo', { id: id, type: true });
+};
+onMounted(() => {
+  proxy.$mybus.on('serveStionclickevent', data => {
+    servestontt.stontt.roadNum = data.roadNum;
+    servestontt.stontt.roadName = data.roadName;
+    servestontt.stontt.roadType = data.roadType;
+    servestontt.name = data.name;
+    servestontt.datalist = data.list;
+  });
+});
 </script>
 <style lang="less" scoped>
 .title_top {
@@ -164,26 +193,38 @@ let cl9 = ref('2');
   }
 }
 .tabclse {
-  text-align: center;
-  div {
-    font-size: 18px;
-    font-family: Source Han Sans CN, Source Han Sans CN-Regular;
-    font-weight: 400;
-    color: #333333;
-  }
-  div.active {
-    font-size: 18px;
-    font-family: Source Han Sans CN, Source Han Sans CN-Regular;
-    font-weight: 700;
-    color: #333333;
-  }
-  .tabclse_bottom {
-    margin: 0 auto;
-    width: 29px;
-    height: 5px;
-    background: linear-gradient(#1a72f8 0%, #1ca7ff 100%);
-    border-radius: 3px;
-  }
+  margin-bottom: 100px;
+}
+// .tabclse {
+//   text-align: center;
+//   div {
+//     font-size: 18px;
+//     font-family: Source Han Sans CN, Source Han Sans CN-Regular;
+//     font-weight: 400;
+//     color: #333333;
+//   }
+//   div.active {
+//     font-size: 18px;
+//     font-family: Source Han Sans CN, Source Han Sans CN-Regular;
+//     font-weight: 700;
+//     color: #333333;
+//   }
+//   .tabclse_bottom {
+//     margin: 0 auto;
+//     width: 29px;
+//     height: 5px;
+//     background: linear-gradient(#1a72f8 0%, #1ca7ff 100%);
+//     border-radius: 3px;
+//   }
+// }
+:deep(.van-tab__text--ellipsis) {
+  font-size: 18px;
+  font-family: Source Han Sans CN, Source Han Sans CN-Regular;
+  font-weight: 400;
+  color: #333333;
+}
+:deep(.van-tabs__line) {
+  background: linear-gradient(#1a72f8 0%, #1ca7ff 100%);
 }
 .toll_centen {
   margin-top: 12px;
@@ -193,7 +234,8 @@ let cl9 = ref('2');
   .toll_centen_right {
     display: inline-block;
     width: calc(100% - 160px);
-    vertical-align: bottom;
+    vertical-align: text-top;
+    margin-top: 18px;
     div {
       margin-left: 16px;
       font-size: 18px;
@@ -289,10 +331,11 @@ let cl9 = ref('2');
     display: inline-block;
     width: 60px;
     height: 60px;
-    margin-top: 20px;
+    margin-top: 15px;
     float: right;
+    text-align: center;
+    margin-right: 15px;
     .video_base {
-      margin-left: 4px;
       width: 22px;
       height: 26px;
     }

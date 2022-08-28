@@ -7,6 +7,20 @@ const routes = [
       title: '费用列表',
     }
   },
+  {
+    path: '/billinfo',
+    component: () => import('./views/billInfo'),
+    meta: {
+      title: '发票信息',
+    }
+  },
+  {
+    path: '/billdetails',
+    component: () => import('./views/billDetails'),
+    meta: {
+      title: '发票详情',
+    }
+  },
 
 ]
 

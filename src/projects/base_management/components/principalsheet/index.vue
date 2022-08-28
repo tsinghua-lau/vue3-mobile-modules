@@ -49,9 +49,8 @@
 </template>
 
 <script setup>
-import { defineComponent, getCurrentInstance, ref } from 'vue';
+import { defineComponent, getCurrentInstance, onMounted, ref } from 'vue';
 import router from '../../router.js';
-const emit = defineEmits(['closeAdd']);
 const { proxy } = getCurrentInstance();
 const icon1 = ref(require('../../icon/princi_01.png'));
 const icon2 = ref(require('../../icon/princi_02.png'));
@@ -64,7 +63,7 @@ const icon8 = ref(require('../../icon/princi_08.png'));
 const icon9 = ref(require('../../icon/princi_09.png'));
 const icon10 = ref(require('../../icon/princi_10.png'));
 const showMapmarker = type => {
-  const params = {type:type};
+  const params = { type: type };
   if (type == 1) {
     if (icon1.value == require('../../icon/princi_01act.png')) {
       icon1.value = require('../../icon/princi_01.png');
@@ -151,11 +150,21 @@ const showMapmarker = type => {
   proxy.$mybus.emit('makebaseMark', params);
 };
 const showSearch = () => {
-  emit('openSear', true);
+  proxy.$mybus.emit('openSear', true);
 };
+onMounted(()=>{
+  proxy.$mybus.on('closeVideobutton',data=>{
+    showMapmarker(data.type)
+  })
+})
 </script>
 
 <style lang="less" scoped>
+@font-face {
+  font-family: 'SourceHanSansCN';
+  src: url('../../../../assets/fonts/SourceHanSansCN-Bold.otf');
+  font-style: normal;
+}
 .box_indesx {
   position: absolute;
   bottom: 0;
@@ -182,17 +191,17 @@ const showSearch = () => {
         width: 25px;
         height: 25px;
       }
-      /deep/ .van-icon-search:before {
+      :deep(.van-icon-search:before) {
         font-size: 24px;
         color: #333333;
       }
-      /deep/ .van-search__content--round {
+      :deep(.van-search__content--round) {
         border: none;
         background: #fff;
         height: 40px;
         overflow: hidden;
       }
-      /deep/.van-field__control {
+      :deep(.van-field__control) {
         // padding-left: 10px;
         font-size: 18px;
         font-family: Source Han Sans CN, Source Han Sans CN-Regular;
@@ -201,16 +210,16 @@ const showSearch = () => {
         color: #575757;
         line-height: 22px;
       }
-      /deep/.van-field__control::-webkit-input-placeholder {
+      :deep(.van-field__control::-webkit-input-placeholder) {
         color: #575757;
       }
-      /deep/.van-field__control::-moz-placeholder {
+      :deep(.van-field__control::-moz-placeholder) {
         color: #575757;
       }
-      /deep/.van-field__control:-moz-placeholder {
+      :deep(.van-field__control:-moz-placeholder) {
         color: #575757;
       }
-      /deep/.van-field__control:-ms-input-placeholder {
+      :deep(.van-field__control:-ms-input-placeholder) {
         color: #575757;
       }
     }

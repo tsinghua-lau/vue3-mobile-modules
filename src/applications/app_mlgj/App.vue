@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-     <router-view v-slot="{ Component }">
-        <keep-alive>
-          <component :is="Component" />
-        </keep-alive>
-      </router-view>
+    <router-view v-slot="{ Component }">
+      <keep-alive>
+        <component :is="Component" />
+      </keep-alive>
+    </router-view>
     <js-map />
     <layout id="footer" />
   </div>
@@ -53,6 +53,7 @@ onMounted(() => {
 #footer {
   position: fixed;
   height: 70px;
+  z-index: 2005;
 }
 html,
 body {

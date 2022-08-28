@@ -1,26 +1,27 @@
 <template>
-  <div>
+  <div class="isod">
     <div class="title_top_had">
       <img class="tollimg" src="./../../icon/serveicon.png" />
       <span class="toll_gate_txt">事故快处点</span>
       <img src="./../../icon/close.png" @click="closepuop" class="closeButton" />
     </div>
     <div>
-      <highwaySign msg="国家高速" />
+      <highwaySign :msg="handdata.kckpInfo.stontt" />
       <span class="toll_centen_right_had">
-        <div>事故快处点名称</div>
+        <div>{{ handdata.kckpInfo.kckpName }}</div>
         <div class="toll_centen_right_bottom">
-          <span class="toll_centen_right_icon1">常驻</span>
+          <span class="toll_centen_right_icon1" v-if="handdata.kckpInfo.nature == 0">常驻</span>
+          <span class="toll_centen_right_icon1" v-else-if="handdata.kckpInfo.nature == 1">节假日</span>
         </div>
       </span>
     </div>
     <van-cell-group class="toll_centen_phone_had">
       <div class="toll_centen_phone_l">地址</div>
-      <div class="toll_centen_phone_r">G2高速公路无锡东收费站旁边</div>
+      <div class="toll_centen_phone_r">{{ handdata.kckpInfo.address }}</div>
     </van-cell-group>
     <van-cell-group class="toll_centen_phone_had">
       <div class="toll_centen_phone_l">联系电话</div>
-      <div class="toll_centen_phone_r">13939393939</div>
+      <div class="toll_centen_phone_r">{{ handdata.kckpInfo.contact }}</div>
     </van-cell-group>
 
     <div>
@@ -30,13 +31,47 @@
   </div>
 </template>
 <script setup>
+import { onMounted, getCurrentInstance } from 'vue';
+import { reactive } from '@vue/reactivity';
 import highwaySign from '../highway_sign.vue';
-const emit = defineEmits(['closeAdd']);
+const { proxy } = getCurrentInstance();
 const closepuop = () => {
-  emit('closePubopserhand', false);
+  proxy.$mybus.emit('closePubopserhand', false);
 };
+let handdata = reactive({
+  kckpInfo: {
+    kckpName: '南洋快处快赔',
+    address: 'S28高速公路南洋东收费站旁边',
+    contact: '13939393939',
+    nature: 0,
+    stontt: {
+      roadNum: 'G42',
+      roadName: '京沪高速',
+      roadType: '0',
+    },
+  },
+});
+onMounted(() => {
+  proxy.$mybus.on('handStionclickevent', data => {
+    handdata.kckpInfo.kckpName = data.kckpname
+    handdata.kckpInfo.address = data.address
+    handdata.kckpInfo.contact = data.contact
+    handdata.kckpInfo.nature = data.nature
+    handdata.kckpInfo.stontt.roadNum = data.roadNum
+    handdata.kckpInfo.stontt.roadName = data.roadName
+    handdata.kckpInfo.stontt.roadType = data.roadType
+  });
+});
 </script>
 <style lang="less">
+@font-face {
+  font-family: 'SourceHanSansCN';
+  src: url('../../../../assets/fonts/SourceHanSansCN-Bold.otf');
+  font-style: normal;
+}
+.isod {
+  margin-bottom: 100px;
+}
 .title_top_had {
   box-sizing: border-box;
   position: relative;

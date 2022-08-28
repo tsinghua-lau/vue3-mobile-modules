@@ -1,27 +1,44 @@
 <template>
-  <div>
+  <div class="isod">
     <div class="title_top_e">
       <img class="tollimg" src="./../../icon/epidemicpreventionicon.png" />
       <span class="toll_gate_txt">防疫点</span>
       <img src="./../../icon/close.png" @click="closemarker" class="closeButton" />
     </div>
     <div>
-      <highwaySign msg="国家高速" />
+      <highwaySign :msg="stontt" />
       <span class="toll_centen_right_e">
-        <p>新冠疫情高邮检查点</p>
+        <p>{{ stontt.epidname }}</p>
       </span>
     </div>
     <div class="traffTxt_e">
-      <p>在高邮收费站出口设置疫情检查点﹐驾乘人员需提供健康码，通行大数据行程码·18小时核酸报告。</p>
+      <p>{{ stontt.epidtxt }}</p>
     </div>
   </div>
 </template>
 <script setup>
+import { ref, reactive, onMounted, onBeforeMount, getCurrentInstance } from 'vue';
 import highwaySign from '../highway_sign.vue';
-const emit = defineEmits(['closeAdd']);
+const { proxy } = getCurrentInstance();
+var stontt = reactive({
+  roadNum: 'G42',
+  roadName: '京沪高速',
+  roadType: '0',
+  epidname:'',
+  epidtxt:'',
+});
 const closemarker = type => {
-  emit('closePubopserepid', false);
+  proxy.$mybus.emit('closePubopserepid', false);
 };
+onMounted(() => {
+  proxy.$mybus.on('epidStionclickevent', ({ data }) => {
+    stontt.roadName = data.roadName;
+    stontt.roadNum = data.roadNum;
+    stontt.roadType = data.roadType;
+    stontt.epidname = data.name;
+    stontt.epidtxt = data.policy;
+  });
+});
 </script>
 <style lang="less" scoped>
 @font-face {
@@ -29,6 +46,10 @@ const closemarker = type => {
   src: url('../../../../assets/fonts/SourceHanSansCN-Bold.otf');
   font-style: normal;
 }
+.isod {
+  margin-bottom: 100px;
+}
+
 .title_top_e {
   box-sizing: border-box;
   position: relative;

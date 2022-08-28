@@ -17,8 +17,8 @@ window._AMapSecurityConfig = {
 import AMapLoader from '@amap/amap-jsapi-loader';
 import { makeMark } from '@mlgj/hooks/czMap/index';
 import { selectLine, resetMap, hollowOut, getUserLocation, delMapObj } from '@mlgj/hooks/appointment/index';
-import { makeCarMark, selectDoubleLine, delMapCar } from '@mlgj/hooks/rescue/index';
-import { makebaseMark, makeroadConditions } from '@mlgj/hooks/base/index';
+import { makeCarMark, selectDoubleLine, makeStationMarks, delMapCar } from '@mlgj/hooks/rescue/index';
+import { makebaseMark, makeroadConditions, makeWeatherline, makeWeatherMark, delMapWeatherline, delMapWeatherMark } from '@mlgj/hooks/base/index';
 import { onBeforeMount, onMounted, ref, getCurrentInstance } from 'vue';
 const { proxy } = getCurrentInstance();
 let trafficLayerjs = null;
@@ -59,6 +59,11 @@ onBeforeMount(() => {
     delMapObj(map);
   });
   //------------------救援服务----------------------------
+  //添加人员附近前后桩号点
+  proxy.$mybus.on('makeStationMarks', data => {
+    makeStationMarks(map, data);
+  });
+
   //添加救援车辆
   proxy.$mybus.on('makeCarMark', data => {
     makeCarMark(map);
@@ -75,12 +80,34 @@ onBeforeMount(() => {
   });
 
   //------------------基础管理----------------------------
-  proxy.$mybus.on('makebaseMark', (params) => {
+  proxy.$mybus.on('makebaseMark', params => {
     makebaseMark(params, map, proxy);
   });
   proxy.$mybus.on('roadConditions', type => {
     makeroadConditions(type, map, trafficLayerjs);
   });
+  //绘制天气路线
+  proxy.$mybus.on('makeWeatherline', params => {
+    console.log(999999999999999999999999);
+    makeWeatherline(params, map, proxy);
+  });
+
+  //清除天气路线
+  proxy.$mybus.on('delMapWeatherline', params => {
+    console.log(999999999999999999999999);
+    delMapWeatherline(map);
+  });
+
+  //添加气象道路标记点
+  proxy.$mybus.on('makeWeatherMark', data => {
+    makeWeatherMark(data, map);
+  });
+
+  //清除天气道路点
+  proxy.$mybus.on('delMapWeatherMark', params => {
+    delMapWeatherMark(map);
+  });
+
   //地图初始化
   initMap
     .then(map => {
@@ -89,7 +116,7 @@ onBeforeMount(() => {
       //获取用户位置
       getUserLocation(map);
       //绘制默认地区边界
-      searchAndBounds('江苏省');
+      // searchAndBounds('江苏省');
     })
     .catch(err => {
       console.log(err);
@@ -123,6 +150,7 @@ const initMap = new Promise((resolve, reject) => {
       };
       var district = new AMap.DistrictSearch(options);
       //查询江苏省区域
+
       district.search('江苏省', function (status, result) {
         var bounds = result.districtList[0]['boundaries'];
         var mask = [];
@@ -139,6 +167,18 @@ const initMap = new Promise((resolve, reject) => {
           fillColor: 'red', //填充色
           mapStyle: 'amap://styles/80285d8f601c5dc8a2943c3720108b0e',
         });
+
+        //添加地图点击事件，用于获取道路气象数据
+        map.on('click', function (e) {
+          //地图点击事件    1、判断气象面板是否开启  2、获取经纬度
+          var data = {
+            lon: e.lnglat.getLng(),
+            lat: e.lnglat.getLat(),
+            province: 32,
+          };
+          proxy.$mybus.emit('getWeatherShowBox', data); //开启图例
+        });
+
         //添加描边
         for (var i = 0; i < bounds.length; i++) {
           new AMap.Polyline({
@@ -154,6 +194,9 @@ const initMap = new Promise((resolve, reject) => {
       setTimeout(() => {
         let times = setInterval(() => {
           if (map) {
+                 map.on('click', ()=>{
+        console.log(123);
+       })
             //实时路况信息
             var trafficLayer = new AMap.TileLayer.Traffic({
               zIndex: 10,

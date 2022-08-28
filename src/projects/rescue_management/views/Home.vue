@@ -1,46 +1,54 @@
 <template>
-
   <div class="bottom-double-btn-box">
     <div class="coset-btn">
       <img class="coset-btnimg"
            src="../images/rescuecosts.png"
            alt="" />
-      <span @click="goToChargingstandard">救援费用</span>
+      <span @click="showfyEdit">救援费用</span>
+      <!-- @click="goToChargingstandard" -->
     </div>
     <div class="line"></div>
 
-    <div :class="state==0?'request-btn':'request-btn statehidden'">
+    <div :class="state==0?'request-btn':'statehidden'">
       <img class="coset-btnimg"
            src="../images/phone.png"
            alt="" />
-      <span @click="showDialogEdit">如需帮助,请拨96777</span>
+      <span>如需帮助,请拨96777</span>
     </div>
 
-    <div :class="state==1?'request-btn':'request-btn statehidden'">
+    <div :class="state==1?'request-btn':'statehidden'">
       <img class="left-more coset-btnimg"
            src="../images/requestrescue.png"
            alt="" />
       <span @click="showDialogEdit">请求救援</span>
     </div>
 
-    <div :class="state==2?'requesting-btn':'requesting-btn statehidden'">
+    <div :class="state==2?'request-btn':'statehidden'">
+      <img class="left-little coset-btnimg"
+           src="../images/time.png"
+           alt="" />
+      <span>等待应答</span>
+      <span style="color:#02D8A5">04:59</span>
+    </div>
+
+    <div :class="state==3||state==4?'requesting-btn':'statehidden'">
       <div>
         <img class="coset-btnimg2"
              src="../images/requestrescue.png"
              alt="" />
         <span>正在救援中...</span>
       </div>
-      <span class="notice">可在公众号中发送位置浏息进行互动</span>
+      <sapn class="notice">可在公众号中发送位置浏息进行互动</sapn>
     </div>
 
   </div>
 
   <!-- 您未在高速上顶部提示 -->
-  <div :class="state==0?'top-tips':'top-tips statehidden'">
+  <div :class="state==0?'top-tips':'statehidden'">
     未匹配到您在高速上的位置
   </div>
   <!-- 耐心等待提示 -->
-  <div :class="state==2?'wait-tips':'wait-tips statehidden'">
+  <div :class="state==3?'wait-tips':'statehidden'">
     请耐心等待救援车辆
   </div>
 
@@ -66,19 +74,40 @@
     </div>
   </van-overlay>
 
+  <van-overlay class="deep"
+               :show="showfy">
+    <div class="close-btn"
+         @click="showfy = false"><img src="../images/close.png" /></div>
+    <charghtml></charghtml>
+  </van-overlay>
+
 </template>
 
 <script setup>
 import { ref, reactive, onMounted, getCurrentInstance } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { useStore } from 'vuex'; // 引入useStore 方法
+import { SubmitRescue, getUserStation, getUserRescueState } from '../api/index.js';
 import { Toast } from 'vant';
+import charghtml from './../components/notice/Chargingstandard.vue'; //救援费用组件引入
+// import SocketService from './../websocket/web_socket_service'; //引入websocket
 
-const { proxy, ctx } = getCurrentInstance();
+const { proxy } = getCurrentInstance();
 const route = useRoute();
 const router = useRouter();
+const store = useStore(); // 该方法用于返回store 实例
+console.log(store); // 不知道为甚获取不到？？
 
 const state = ref(0);
-const show = ref(false);
+const show = ref(false); //弹窗展示发起救援
+const showfy = ref(false); //弹窗展示救援费用
+const nowtime = '';
+const endtiime = '';
+
+// export default {
+//   name: 'App',
+//   components: { charghtml },
+// };
 
 //发起救援服务弹窗
 const showDialogEdit = () => {
@@ -88,18 +117,52 @@ const showDialogEdit = () => {
     state.value = 1;
   }
 };
+
+//发起救援费用弹窗
+const showfyEdit = () => {
+  showfy.value = true;
+};
+
 //取消救援
 const closeDialogEdit = () => {
   show.value = false;
 };
 
+const userInfo = {
+  //用于存放救援人员信息
+  fromPhoneNum: '13585338332',
+  roadNum: 'G15',
+  roadName: '沈海高速',
+  roadDirection: '0',
+  position: '340',
+  mileage: '100',
+  laneType: '4',
+  longitude: '120.224595',
+  latitude: '32.089606',
+  rescueType: '1',
+  rescueState: '0',
+};
+
 //确认救援
 const handleRescue = () => {
+  // SubmitRescue(userInfo).then(res => {
+  //   if (res.code == 200) {
+  //     state.value = 2;
+  //     show.value = false;
+  //     if (res.code == 'success') {
+  //       Toast('救援发起成功');
+  //     } else {
+  //       Toast('救援发起失败');
+  //     }
+  //     // proxy.$mybus.emit('makeCarMark', '地图数据操作~~~');
+  //   }
+  // });
   state.value = 2;
   show.value = false;
-  Toast('正在救援中...');
-
-  proxy.$mybus.emit('makeCarMark', '地图数据操作~~~');
+  Toast('救援发起成功');
+  //开始倒计时
+  // nowtime = parseInt(new Date().getTime() / 1000); //获取当前时间
+  // endtime = parseInt((new Date().getTime() + 300000) / 1000); //获取当前时间的后5min
 };
 
 //跳转至救援明细页面
@@ -107,38 +170,100 @@ const goToChargingstandard = () => {
   router.push({ name: 'Chargingstandard' });
 };
 
-//显示当前状态
-const showState = () => {
-  // if (state.value == 0) {
-  //   text.value = '如需帮助,请拨96777';
-  // } else if (state.value == 1) {
-  //   text.value = '请求救援';
-  // }
-};
-
-// let state = reactive({
-//   map: null,
-//   date: '',
-// });
-
-//确认救援服务按钮请求
-// const beforeClose = action =>
-//   new Promise(resolve => {
-//     setTimeout(() => {
-//       if (action === 'confirm') {
-//         resolve(true);
-//       } else {
-//         // 拦截取消操作
-//         resolve(false);
-//       }
-//     }, 1000);
-//   });
-
-onMounted(() => {
-  // initMap();
-  // proxy.$mybus.emit('selectDoubleLine', '地图数据操作~~~');
-  showState();
+//修改救援状态
+proxy.$mybus.on('changState', data => {
+  // store.commit('setState', data);
+  state.value = data;
 });
+
+//5min倒计时
+const countdown = () => {};
+
+//切换至救援页面所需工作
+proxy.$mybus.on('goToRescuePage', data => {
+  //调用用户救援状态接口
+  getUserRescueState({
+    userId: '13585338332',
+  }).then(res => {
+    //测试数据
+    res = {
+      code: 200,
+      msg: 'success',
+      data: {
+        eventId: 'ff80818169e0cdb2016a4304eaa20294',
+        fromPhoneNum: '18779239070',
+        state: '1',
+        rescueCar: {
+          plate: '苏JF121Y',
+          latitude: '32.46965016',
+          longitude: '120.59435125',
+          speed: '80',
+          orientation: 293,
+          requestTime: '2022-08-15 19:11:04',
+        },
+      },
+    };
+    if (res.code == 200) {
+      //对状态的处理
+      if (res.data.state == 0) {
+        //待应答
+        state.value = 2;
+      } else if (res.data.state == 1) {
+        if (res.data.rescueCar == '') {
+          //待救援，未发车
+          state.value = 3;
+        } else {
+          //待救援，已发车
+          state.value = 4;
+          //绘制车辆点
+        }
+      } else {
+        state.value = 1;
+      }
+    }
+  });
+  setTimeout(async () => {
+    // 获取当前人员信息  同步
+    // let data = await getUserStation({
+    //   lon: '120.224595', //测试用经纬度
+    //   lat: '32.089606',
+    // }); //获取人员是否在高速上，如果在，获取前后各两个桩号并展示
+    let data = [
+      {
+        position: '103',
+        mileage: '400',
+        lon: '118.923734',
+        lat: '32.112041',
+      },
+      {
+        position: '103',
+        mileage: '500',
+        lon: '118.906568',
+        lat: '32.06201',
+      },
+      {
+        position: '103',
+        mileage: '700',
+        lon: '118.910733',
+        lat: '32.073693',
+      },
+      {
+        position: '103',
+        mileage: '800',
+        lon: '118.904021',
+        lat: '32.05683',
+      },
+    ];
+    if (data.length > 0) {
+      // state.value = 1;
+      proxy.$mybus.emit('makeStationMarks', data); //添加地图桩号
+    } else {
+      state.value = 0;
+    }
+  }, 500);
+});
+
+onMounted(() => {});
 </script>
 
 <style scoped lang="less">
@@ -159,7 +284,7 @@ onMounted(() => {
   margin-left: 15px;
   background: rgba(255, 255, 255, 0.9);
   border-radius: 15px;
-  bottom: 82px;
+  bottom: 94px;
   height: 60px;
   box-shadow: 0px 8px 20px 0px rgba(59, 118, 239, 0.3);
   z-index: 999;
@@ -338,7 +463,24 @@ onMounted(() => {
 .left-more {
   margin-left: 60px;
 }
+.left-little {
+  margin-left: 34px;
+}
 .statehidden {
   display: none;
+}
+.close-btn {
+  position: fixed;
+  z-index: 9999;
+  /* width: 100%; */
+  /* text-align: right; */
+  /* background: #fff; */
+  height: 16px;
+  width: 10px;
+  right: 14px;
+  top: -4px;
+}
+.close-btn img {
+  width: 16px;
 }
 </style>

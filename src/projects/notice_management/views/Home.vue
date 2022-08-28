@@ -3,7 +3,7 @@
     <div class="home-wrap">
 
         <div class="tab-box">
-            <van-tabs v-model:active="tabActiveIndex">
+            <van-tabs v-model:active="tabActiveIndex" @change="tabChange">
                 <van-tab title="公告信息"></van-tab>
                 <van-tab title="节假日政策"></van-tab>
                 <van-tab title="收费政策"></van-tab>
@@ -13,16 +13,18 @@
         <div class="content-box">
             <div
                     class="item"
-                    v-for="(item,index) in noticeList[tabActiveIndex]"
+                    v-for="(item,index) in noticeList"
                     :key="'notice'+index"
-                    @click="noticeItemClick( index )"
+                    @click="noticeItemClick( item, index )"
             >
                 <div class="item-title">{{ item.title }}</div>
                 <div class="item-info">
-                    <div class="item-info-view">浏览量：{{ item.view }}</div>
-                    <div class="item-info-date">{{ item.date }}</div>
+                    <div class="item-info-view">浏览量：{{ item.views || 0 }}</div>
+                    <div class="item-info-date">{{ item.issueTime }}</div>
                 </div>
             </div>
+
+            <empty v-if="!noticeList.length" text="暂无公告"></empty>
         </div>
     </div>
 </template>
@@ -37,6 +39,12 @@
     } from 'vue';
     import {Tab, Tabs} from 'vant';
     import {useRouter} from "vue-router";
+    import empty from '@/components/Empty.vue';
+    import {load} from '../components/loading/loading.js';
+
+    import {
+        getNoticeList,
+    } from '../api/index'
 
     export default defineComponent({
         name: 'home',
@@ -44,113 +52,66 @@
         components: {
             [Tab.name]: Tab,
             [Tabs.name]: Tabs,
+            empty,
         },
         setup(props, ctx) {
-
+            const $router = useRouter();
             const data = reactive({
                 tabActiveIndex: 0,
-                noticeList: [
-                    [
-                        {
-                            title: '尖于丁伙枢纽部分匝道扩建施工期间限车辆通知公告',
-                            view: '6000',
-                            date: '2022-08-10',
-                        },
-                        {
-                            title: '尖于丁伙枢纽部分匝道扩限车辆通知公告',
-                            view: '6000',
-                            date: '2022-08-10',
-                        },
-                        {
-                            title: '尖于丁伙枢纽部分匝道扩建施工期间限车辆通知公告',
-                            view: '6000',
-                            date: '2022-08-10',
-                        },
-                        {
-                            title: '尖于丁伙枢纽部分匝道扩建施工辆通知公告',
-                            view: '6000',
-                            date: '2022-08-10',
-                        },
-                        {
-                            title: '尖于丁伙枢纽部分匝道车辆通知公告',
-                            view: '6000',
-                            date: '2022-08-10',
-                        },
-                        {
-                            title: '尖于丁伙枢纽部分匝道车辆通知公告',
-                            view: '6000',
-                            date: '2022-08-10',
-                        },
-                    ],
-                    [
-                        {
-                            title: '尖于丁伙枢纽部分匝道扩建施工期间限车辆通知公告',
-                            view: '6000',
-                            date: '2022-08-10',
-                        },
-                        {
-                            title: '尖于丁伙枢纽部分匝道扩限车辆通知公告',
-                            view: '6000',
-                            date: '2022-08-10',
-                        },
-                        {
-                            title: '尖于丁伙枢纽部分匝道扩建施工期间限车辆通知公告',
-                            view: '6000',
-                            date: '2022-08-10',
-                        },
-                        {
-                            title: '尖于丁伙枢纽部分匝道扩建施工辆通知公告',
-                            view: '6000',
-                            date: '2022-08-10',
-                        },
-                    ],
-                    [
-                        {
-                            title: '尖于丁伙枢纽部分匝道扩建施工期间限车辆通知公告',
-                            view: '6000',
-                            date: '2022-08-10',
-                        },
-                        {
-                            title: '尖于丁伙枢纽部分匝道扩建施工辆通知公告',
-                            view: '6000',
-                            date: '2022-08-10',
-                        },
-                        {
-                            title: '尖于丁伙枢纽部分匝道车辆通知公告',
-                            view: '6000',
-                            date: '2022-08-10',
-                        },
-                        {
-                            title: '尖于丁伙枢纽部分匝道车辆通知公告',
-                            view: '6000',
-                            date: '2022-08-10',
-                        },
-                    ]
-                ],
+                noticeList: [],
             });
-            const $router = useRouter();
+
+            /**
+             * 获取公告列表
+             * @param index 类型下标
+             */
+            function getList(index) {
+                load.show('拼命加载中...');
+
+                getNoticeList(
+                    {
+                        type: ['GG', 'JJR', 'SF'][index],
+                    }
+                ).then((res) => {
+                    if (res && res.code === 200) {
+                        let list = res.data.list || [];
+                        data.noticeList = list;
+                    }
+                    console.log("getList==>", res)
+                }).finally(() => {
+                    load.hide()
+                })
+            }
 
             /**
              * 公告点击事件
              * @param index
              */
-            function noticeItemClick(index) {
-                console.log(index);
+            function noticeItemClick(item, index) {
                 $router.push({
                     name: 'details',
                     params: {
-                        id: 'queryId',
+                        id: item.id,
                     },
                 });
             }
 
-            onMounted(() => {
+            /**
+             * tab切换
+             * @param index
+             */
+            function tabChange(index) {
+                getList(index);
+            }
 
+            onMounted(() => {
+                getList(data.tabActiveIndex);
             });
 
             return {
                 ...toRefs(data),
                 noticeItemClick,
+                tabChange,
             };
         },
     });
@@ -168,7 +129,7 @@
             height: 57px;
             width: 100%;
 
-            /deep/ .van-tabs__wrap {
+            :deep(.van-tabs__wrap) {
                 height: 100%;
 
                 .van-tabs__nav {

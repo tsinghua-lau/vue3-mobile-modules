@@ -20,6 +20,8 @@ import 'vant/lib/notify/style';
 import 'vant/lib/dropdown-menu/style';
 import 'vant/lib/dropdown-item/style';
 import 'vant/lib/overlay/style';
+import 'vant/lib/form/style';
+
 
 import {
   Popup,
@@ -27,7 +29,7 @@ import {
   Cell,
   Calendar,
   Tabbar, TabbarItem, Field, CellGroup,Checkbox,Notify,Toast,Tab, Tabs,Picker,DatetimePicker,
-  DropdownMenu, DropdownItem,Overlay
+  DropdownMenu, DropdownItem,Overlay, Form,CheckboxGroup
 } from 'vant';
 // import { vant } from '../../vant.config'
 let app = createApp(App)
@@ -44,5 +46,5 @@ app.config.globalProperties.$getTime = getTime
 app.use(store).use(router).use(Popup).use(Button).use(Notify)
 .use(Cell).use(Calendar).use(Tabbar).use(TabbarItem)
 .use(Field).use(CellGroup).use(Checkbox).use(Toast).use(Tab).use(Tabs).use(Picker)
-.use(DropdownMenu).use(DropdownItem).use(Overlay)
+.use(DropdownMenu).use(DropdownItem).use(Overlay).use(Form).use(CheckboxGroup)
 .mount('#app')

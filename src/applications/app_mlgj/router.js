@@ -33,6 +33,14 @@ const routes = [{
     }
   },
   {
+    path: '/route',
+    name: 'route',
+    component: () => import('../../projects/route_management/views/Home.vue'),
+    meta: {
+      title: '驾驶路线',
+    }
+  },
+  {
     path: '/base',
     name: 'Base',
     component: () => import('../../projects/base_management/views/Home.vue'),
@@ -40,14 +48,14 @@ const routes = [{
       title: '基础服务',
     },
   },
-  {
-    path: '/Chargingstandard',
-    name: 'Chargingstandard',
-    component: () => import('../../projects/rescue_management/views/notice/Chargingstandard.vue'),
-    meta: {
-      title: '救援费用',
-    }
-  },
+  // {
+  //   path: '/Chargingstandard',
+  //   name: 'Chargingstandard',
+  //   component: () => import('../../projects/rescue_management/views/notice/Chargingstandard.vue'),
+  //   meta: {
+  //     title: '救援费用',
+  //   }
+  // },
 ]
 
 const router = createRouter({

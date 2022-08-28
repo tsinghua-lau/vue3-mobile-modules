@@ -7,6 +7,7 @@ import store from './store'
 
 import mitt from "mitt";
 
+
 import 'amfe-flexible';
 // import Vant from 'vant';
 

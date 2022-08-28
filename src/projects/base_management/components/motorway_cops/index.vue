@@ -1,35 +1,73 @@
 <template>
-  <div>
+  <div class="isod">
     <div class="title_top_m">
-      <img class="tollimg" src="./../../icon/motorway_cops.png" />
+      <img class="tollimg"
+           src="./../../icon/motorway_cops.png" />
       <span class="toll_gate_txt">高速交警</span>
-      <img src="./../../icon/close.png" @click="showmarkerclick" class="closeButton" />
+      <img src="./../../icon/close.png"
+           @click="showmarkerclick"
+           class="closeButton" />
     </div>
-    <div class="motorway_name">交警队名称</div>
+    <div class="motorway_name">{{data.policeInfo.deptName}}</div>
     <van-cell-group class="toll_centen_phone_m">
       <div class="toll_centen_phone_l">地址</div>
-      <div class="toll_centen_phone_r">G2高速公路无锡东收费站旁边</div>
+      <div class="toll_centen_phone_r">{{data.policeInfo.address}}</div>
     </van-cell-group>
     <van-cell-group class="toll_centen_phone_m">
       <div class="toll_centen_phone_l">联系电话</div>
-      <div class="toll_centen_phone_r">13939393939</div>
+      <div class="toll_centen_phone_r">{{data.policeInfo.contact}}</div>
     </van-cell-group>
     <div style="margin-top: 10px">
-      <span class="postion_l_m"><img class="postion_l_icon" src="../../icon/position.png" />20.55KM</span>
-      <van-button class="postion_r_m" color="#2d7ce7" round size="small">路线</van-button>
+      <span class="postion_l_m"><img class="postion_l_icon"
+             src="../../icon/position.png" />20.55KM</span>
+      <van-button class="postion_r_m"
+                  color="#2d7ce7"
+                  round
+                  size="small">路线</van-button>
     </div>
   </div>
 </template>
 
 <script setup>
-const emit = defineEmits(['closeAdd']);
+import { ref, onMounted, onBeforeMount, getCurrentInstance, reactive } from 'vue';
+const { proxy } = getCurrentInstance();
 
 const showmarkerclick = () => {
-  emit('closePubopsercops', false);
+  proxy.$mybus.emit('closePubopsercops', false);
 };
+//高速交警详情信息
+
+const data = reactive({
+  policeInfo: {
+    deptName: '',
+    address: '',
+    contact: '',
+  },
+});
+
+//获取高速交警详情信息
+const copStionclick = () => {
+  proxy.$mybus.on('copStionclickevent', info => {
+    data.policeInfo.deptName = info.deptName;
+    data.policeInfo.address = info.address;
+    data.policeInfo.contact = info.contact;
+  });
+};
+
+onMounted(() => {
+  copStionclick();
+});
 </script>
 
 <style lang="less">
+@font-face {
+  font-family: 'SourceHanSansCN';
+  src: url('../../../../assets/fonts/SourceHanSansCN-Bold.otf');
+  font-style: normal;
+}
+.isod {
+  margin-bottom: 100px;
+}
 .title_top_m {
   box-sizing: border-box;
   position: relative;

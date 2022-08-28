@@ -2,11 +2,12 @@
   <div id="app">
     <router-view />
     <!-- <layout id="footer" /> -->
-
+  <IsPopUpVue />
   </div>
 </template>
 <script setup>
   import layout from './components/layout/index.vue'
+  import IsPopUpVue from '../../components/IsPopUp.vue';
 </script>
 <style lang="less" scoped>
 

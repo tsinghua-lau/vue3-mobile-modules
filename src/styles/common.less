@@ -1,5 +1,32 @@
-// 全局样式
-.test{
-  color: red;
-}
+// --------------vant-tab页-----------------
+.van-tabs {
+  width: 100%;
+  .van-tabs__wrap {
+    width: 100%;
+    .van-tabs__nav {
+      background-color: transparent;
+      padding-bottom: 0;
 
+      .van-tab__text {
+        font-size: 15.28px;
+        color: #333333;
+        line-height: 57px;
+      }
+
+      .van-tab--active {
+        .van-tab__text {
+          font-weight: 600;
+        }
+      }
+
+      .van-tabs__line {
+        width: 25.69px;
+        height: 4.17px;
+        background: linear-gradient(#1a72f8 0%, #1ca7ff 100%);
+        border-radius: 2.08px;
+        border: 0;
+        bottom: 5px;
+      }
+    }
+  }
+}

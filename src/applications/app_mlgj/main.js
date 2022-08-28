@@ -6,6 +6,7 @@ import router from './router'
 import store from './store'
 import '../../styles/common.less';
 import mitt from "mitt";
+import * as echarts from 'echarts'
 
 import 'amfe-flexible';
 // import Vant from 'vant';
@@ -35,6 +36,7 @@ import SvgIcon from '@/SvgIcon/index.vue'// svg组件
 
 app.component('svg-icon', SvgIcon)
 app.config.globalProperties.$mybus = new mitt()
+app.config.globalProperties.$echarts = echarts
 
 import {getTime,getUrlCode,isWx} from '@/utils/publicFunctions.js'
 app.config.globalProperties.$getTime = getTime
