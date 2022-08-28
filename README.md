@@ -1,4 +1,4 @@
-# vue3.2移动端
+# vue3.2移动端项目
 
 ### 项目集成
 ##### svg
@@ -6,9 +6,11 @@
 ##### vant
 ##### axios
 ##### vuex
+##### echarts
 ##### postcss-pxtorem
-##### 高德地图
 ##### prettier
+##### 高德地图
+##### 视频播放
 
 
 
