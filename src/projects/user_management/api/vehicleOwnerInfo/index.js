@@ -1,7 +1,7 @@
 import request from '@/utils/request.js'
 
 if (process.env.NODE_ENV === 'development') {
-    request.defaults.headers.common.openid = `15150038735`
+    request.defaults.headers.common.openid = `加密`
 }
 
 

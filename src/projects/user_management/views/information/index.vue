@@ -67,7 +67,7 @@ let state = reactive({
 
 onMounted(() => {
   //获取用户信息
-  getLocalUserInfo({ mobile: window.g.mobile||'15302126792' }).then(res => {
+  getLocalUserInfo({ mobile: window.g.mobile||'加密' }).then(res => {
     debugger;
     console.log(res);
     if (res && res.code == 200) {
@@ -148,7 +148,7 @@ const handleUpload = (localIds, index) => {
           console.log('uploadImg==>', res);
           if (res && res.code === 200) {
             getPreviewImageUrl(res.detail);
-         saveUserInfo({ account: window.g.mobile||'15302126792', hpPath: res.detail }).then(res => {
+         saveUserInfo({ account: window.g.mobile||'加密', hpPath: res.detail }).then(res => {
           if (res && res.code == 200) {
             Toast('头像上传成功');
           } else {
@@ -214,7 +214,7 @@ const confrimName = () => {
     state.nickname = state.tempname;
     // proxy.$mybus.emit('updataUser',{nickname: state.nickname})
     window.g.nickname = state.nickname;
-    saveUserInfo({ account: window.g.mobile||'15302126792', nickName: state.nickname }).then(res => {
+    saveUserInfo({ account: window.g.mobile||'加密', nickName: state.nickname }).then(res => {
       if (res && res.code == 200) {
         Toast('修改成功');
       } else {
@@ -228,7 +228,7 @@ const confrimNameGender = () => {
   if (state.tempgenter !== state.gender) {
     state.gender = state.tempgenter;
     window.g.gender = state.gender;
-    saveUserInfo({ account: window.g.mobile||'15302126792', sex: state.gender == '男性' ? '0' : '1' }).then(res => {
+    saveUserInfo({ account: window.g.mobile||'加密', sex: state.gender == '男性' ? '0' : '1' }).then(res => {
       if (res && res.code == 200) {
         Toast('修改成功');
       } else {

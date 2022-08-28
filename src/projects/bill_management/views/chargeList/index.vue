@@ -122,13 +122,13 @@ const getList = (time, type) => {
   if (type) {
     if (type == '1') {
       ps = {
-        account: window.g.mobile || '15150038735',
+        account: window.g.mobile || '加密',
         timeFlag: time,
         busType: 'E',
       };
     } else {
       ps = {
-        account: window.g.mobile || '15150038735',
+        account: window.g.mobile || '加密',
         timeFlag: time,
         subBusType: type,
       };
@@ -136,7 +136,7 @@ const getList = (time, type) => {
   } else {
     //类型是全部
     ps = {
-      account: window.g.mobile || '15150038735',
+      account: window.g.mobile || '加密',
       timeFlag: time,
     };
   }
@@ -183,20 +183,20 @@ const getJlListS = obj=>{
   if (obj.type) {
     if (obj.type == '1') {
       ps = {
-        account: window.g.mobile || '15150038735',
+        account: window.g.mobile || '加密',
         timeFlag: obj.index,
         busType: 'E',
       };
     } else {
       ps = {
-        account: window.g.mobile || '15150038735',
+        account: window.g.mobile || '加密',
         timeFlag: obj.index,
         subBusType: obj.type,
       };
     }
   }else{
     ps = {
-        account: window.g.mobile || '15150038735',
+        account: window.g.mobile || '加密',
         timeFlag: obj.index,
         subBusType: obj.type,
       };

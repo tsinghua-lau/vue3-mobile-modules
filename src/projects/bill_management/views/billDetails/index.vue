@@ -32,7 +32,7 @@ onMounted(()=>{
     })
 
 })
-  const url = ref('https://sh1a.qingstor.com/jsjicha//JSGS/GZH/FILE/BILL/15150038735001vbq90000.pdf?access_key_id=XMSIHRFFBUGQNDGBBUMK&expires=1661163210&signature=D4%2BC4dNYHOWwMjgC%2B71Nj8bvYAuUW5VI0l%2FmH04ISPs%3D')
+  const url = ref('https://sh1a.qingstor.com/jsjicha//JSGS/GZH/FILE/BILL/加密001vbq90000.pdf?access_key_id=XMSIHRFFBUGQNDGBBUMK&expires=1661163210&signature=D4%2BC4dNYHOWwMjgC%2B71Nj8bvYAuUW5VI0l%2FmH04ISPs%3D')
 
 </script>
 <style lang="less" scopde>

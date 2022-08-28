@@ -116,7 +116,7 @@ const submit = () => {
   if (state.bill[0] == 'gr') {
     //个人
     ps = {
-      account: window.g.mobile || '15302126792',
+      account: window.g.mobile || '加密',
       payId: routeInfo.query.id,
       type: 'dzfp', //发票类型
       headType: state.bill[0], //抬头类型
@@ -127,7 +127,7 @@ const submit = () => {
   } else {
     //企业
     ps = {
-      account: window.g.mobile || '15302126792',
+      account: window.g.mobile || '加密',
       payId: routeInfo.query.id,
       type: 'dzfp', //发票类型
       headType: state.bill[0], //抬头类型
