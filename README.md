@@ -22,13 +22,13 @@
 ├─ src
 │  ├─ assets               # 静态资源
 │  ├─ components           # 全局组件
-│  ├─ applications         # 茉莉管家融合
+│  ├─ applications         # 融合模块
 │  ├─ projects             # 子模块项目
-│     ├─ bill_management   #开票管理
-│     ├─ base_management   #基础管理
-│     ├─ notice_management #通知管理
-│     ├─ rescue_management #救援管理
-│     └─ user_management   #用户管理
+│     ├─ bill_management   #模块一
+│     ├─ base_management   #模块二
+│     ├─ notice_management #模块三
+│     ├─ rescue_management #模块四
+│     └─ user_management   #模块五
 │  ├─ router               # 路由
 │  ├─ store                # Vuex
 │  ├─ styles               # 全局样式
@@ -47,7 +47,7 @@ npm install
 ```
 
 ### Compiles and hot-reloads for development
-#### 启动用户管理
+#### 启动模块一
 ```
 npm run dev:user 
 ```
